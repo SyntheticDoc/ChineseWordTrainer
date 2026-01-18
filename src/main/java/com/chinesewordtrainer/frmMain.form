@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="370" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jScrollPane2" min="-2" pref="375" max="-2" attributes="0"/>
+                  <Component id="jScrollPane3" min="-2" pref="375" max="-2" attributes="0"/>
+                  <Component id="jScrollPane4" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cmdWrong" min="-2" pref="176" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="cmdCorrect" min="-2" pref="176" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="cmdRevealAnswer" min="-2" pref="289" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cmdResetWordStats" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="cmdEnd" min="-2" pref="176" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="jPanel3" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cmdRevealAnswer" min="-2" pref="70" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel3" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cmdCorrect" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="cmdWrong" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="253" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cmdEnd" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="cmdResetWordStats" min="-2" pref="41" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextPane" name="txtConsole">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtQuestion">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="48" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="2"/>
+            <Property name="text" type="java.lang.String" value="Question"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CenteredTextArea()"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtHint">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="24" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="2"/>
+            <Property name="text" type="java.lang.String" value="Click to reveal hint"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtHintMousePressed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CenteredTextArea()"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtAnswer">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="1"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="48" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="2"/>
+            <Property name="text" type="java.lang.String" value="Solution"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CenteredTextArea()"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="cmdWrong">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Wrong"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdWrongActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdCorrect">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Correct"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdCorrectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdEnd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="End Program"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdEndActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Learning Mode">
+              <Font PropertyName="font" name="Dialog" size="12" style="0"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="cboLearningMode" alignment="1" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="cmdLearningModeApply" min="-2" pref="178" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="cboLearningMode" min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="cmdLearningModeApply" pref="115" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JComboBox" name="cboLearningMode">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Learn simplified Hanzi"/>
+                <StringItem index="1" value="Learn traditional Hanzi"/>
+                <StringItem index="2" value="Learn Pinyin"/>
+                <StringItem index="3" value="Learn Translations de -&gt; zh"/>
+                <StringItem index="4" value="Learn Translations zh -&gt; de"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboLearningModeActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Include Lessons"/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="chkL5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL7" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="chkL4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="chkL12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL11" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chkL1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chkL2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chkL3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chkL4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chkL5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chkL6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chkL7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chkL8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JCheckBox" name="chkL1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 3"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 4"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 5"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 6"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 7"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 8"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 9"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 10"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 11"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 12"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="cmdLearningModeApply">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apply and restart session"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdLearningModeApplyActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel3">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Settings">
+              <Font PropertyName="font" name="Dialog" size="12" style="0"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="numShuffleBeta" min="-2" pref="65" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="chkTradHanziOnlyIfDifference" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="94" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="numShuffleBeta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="chkTradHanziOnlyIfDifference" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JCheckBox" name="chkTradHanziOnlyIfDifference">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Traditional Hanzi: Show only words where trad. Hanzi differs from simplified"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="numShuffleBeta">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="1.0" maximum="15.0" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Weighted shuffle Beta"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="cmdRevealAnswer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reveal Answer"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRevealAnswerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdResetWordStats">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reset word stats"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdResetWordStatsActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
