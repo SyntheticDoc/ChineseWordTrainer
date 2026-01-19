@@ -459,6 +459,8 @@ public class frmMain extends javax.swing.JFrame {
 	    console.logMsg("End of list reached, restarting list...");
 	    curListIndex = 0;
 	}
+	
+	console.cprintln("  Word " + curListIndex + " / " + curList.size());
 
 	curWord = curList.get(curListIndex);
 
@@ -586,11 +588,13 @@ public class frmMain extends javax.swing.JFrame {
 
     private void cmdWrongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdWrongActionPerformed
 	curWord.setTimesGottenWrong(curWord.getTimesGottenWrong() + 1);
+	console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getTimesGottenWrong() + " / " + curWord.getTimesGottenRight());
 	loadNextWord();
     }//GEN-LAST:event_cmdWrongActionPerformed
 
     private void cmdCorrectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCorrectActionPerformed
 	curWord.setTimesGottenRight(curWord.getTimesGottenRight() + 1);
+	console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getTimesGottenWrong() + " / " + curWord.getTimesGottenRight());
 	loadNextWord();
     }//GEN-LAST:event_cmdCorrectActionPerformed
 
