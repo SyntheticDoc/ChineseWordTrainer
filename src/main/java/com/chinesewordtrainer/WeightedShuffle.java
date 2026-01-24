@@ -32,17 +32,17 @@ public class WeightedShuffle {
 	this.isDevMode = isDevMode;
     }
     
-    public void shuffle(List<Word> words, double beta) {
-	shuffle(words, new Random(), beta);
+    public void shuffle(List<Word> words, double beta, LearningMode lm) {
+	shuffle(words, new Random(), beta, lm);
     }
     
-    public void shuffle(List<Word> words, Random rnd, double beta) {
+    public void shuffle(List<Word> words, Random rnd, double beta, LearningMode lm) {
 	if (beta <= 0.0) {
 	    // unbiased shuffle
 	    Collections.shuffle(words, rnd);
 	}
 	
-	words.sort(Comparator.comparingDouble(w -> weightedKey(w.getDifficulty(), rnd, beta)));
+	words.sort(Comparator.comparingDouble(w -> weightedKey(w.getDifficulty(lm), rnd, beta)));
 	
 	if(isDevMode) {
 	    console.logMsg("WeightedShuffle: Shuffling list with beta=" + beta);
@@ -51,7 +51,7 @@ public class WeightedShuffle {
 	    
 	    for(int i = 0; i < 30; i++) {
 		Word w = words.get(i);
-		console.logMsg("  " + w.getPinyin() + ", timesWrong=" + w.getTimesGottenWrong() + ", timesRight=" + w.getTimesGottenRight() + ", difficulty=" + String.format("%.3f", w.getDifficulty()));
+		console.logMsg("  " + w.getCSVString());
 	    }
 	}
     }

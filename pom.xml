@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com</groupId>
     <artifactId>ChineseWordTrainer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<maven.compiler.source>16</maven.compiler.source>
+	<maven.compiler.target>16</maven.compiler.target>
     </properties>
     
     <dependencies>
@@ -18,4 +18,21 @@
 	    <version>1.18.42</version>
 	</dependency>
     </dependencies>
+    
+    <build>
+	<plugins>
+	    <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>3.3.0</version>
+		<configuration>
+		    <archive>
+			<manifest>
+			    <mainClass>com.chinesewordtrainer.frmMain</mainClass>
+			</manifest>
+		    </archive>
+		</configuration>
+	    </plugin>
+	</plugins>
+    </build>
 </project>

@@ -440,7 +440,7 @@ public class frmMain extends javax.swing.JFrame {
 
 	// Collections.shuffle(curList);
 	double beta = ((Number) numShuffleBeta.getValue()).doubleValue();
-	weightedShuffle.shuffle(curList, beta);
+	weightedShuffle.shuffle(curList, beta, curLearningMode);
 
 	if (curList.size() == 0) {
 	    console.logErr("ERROR: Building session list resulted in a list with 0 entries! Aborting applyLearningMode(). Please restart program!");
@@ -510,8 +510,8 @@ public class frmMain extends javax.swing.JFrame {
 
 	if (isDevMode) {
 	    for (Word w : allWords) {
-		w.setTimesGottenWrong(0);
-		w.setTimesGottenRight(0);
+		w.setNumWrong_simplified_hanzi(0);
+		w.setNumCorrect_simplified_hanzi(0);
 	    }
 	    
 //	    for (Word w : allWords) {
@@ -587,21 +587,63 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHintMousePressed
 
     private void cmdWrongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdWrongActionPerformed
-	curWord.setTimesGottenWrong(curWord.getTimesGottenWrong() + 1);
-	console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getTimesGottenWrong() + " / " + curWord.getTimesGottenRight());
+	switch(curLearningMode) {
+	    case SIMPLIFIED_HANZI:
+		curWord.setNumWrong_simplified_hanzi(curWord.getNumWrong_simplified_hanzi() + 1);
+		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
+		break;
+	    case TRADITIONAL_HANZI:
+		curWord.setNumWrong_traditional_hanzi(curWord.getNumWrong_traditional_hanzi() + 1);
+		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_traditional_hanzi() + " / " + curWord.getNumCorrect_traditional_hanzi());
+		break;
+	    case PINYIN:
+		curWord.setNumWrong_pinyin(curWord.getNumWrong_pinyin() + 1);
+		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_pinyin() + " / " + curWord.getNumCorrect_pinyin());
+		break;
+	    case TRANSLATE_DE_ZH:
+		curWord.setNumWrong_translate_de_zh(curWord.getNumWrong_translate_de_zh() + 1);
+		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_de_zh() + " / " + curWord.getNumCorrect_translate_de_zh());
+		break;
+	    case TRANSLATE_ZH_DE:
+		curWord.setNumWrong_translate_zh_de(curWord.getNumWrong_translate_zh_de() + 1);
+		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
+		break;
+	}
+	
 	loadNextWord();
     }//GEN-LAST:event_cmdWrongActionPerformed
 
     private void cmdCorrectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCorrectActionPerformed
-	curWord.setTimesGottenRight(curWord.getTimesGottenRight() + 1);
-	console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getTimesGottenWrong() + " / " + curWord.getTimesGottenRight());
+	switch(curLearningMode) {
+	    case SIMPLIFIED_HANZI:
+		curWord.setNumCorrect_simplified_hanzi(curWord.getNumCorrect_simplified_hanzi() + 1);
+		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
+		break;
+	    case TRADITIONAL_HANZI:
+		curWord.setNumCorrect_traditional_hanzi(curWord.getNumCorrect_traditional_hanzi() + 1);
+		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_traditional_hanzi() + " / " + curWord.getNumCorrect_traditional_hanzi());
+		break;
+	    case PINYIN:
+		curWord.setNumCorrect_pinyin(curWord.getNumCorrect_pinyin() + 1);
+		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_pinyin() + " / " + curWord.getNumCorrect_pinyin());
+		break;
+	    case TRANSLATE_DE_ZH:
+		curWord.setNumCorrect_translate_de_zh(curWord.getNumCorrect_translate_de_zh() + 1);
+		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_de_zh() + " / " + curWord.getNumCorrect_translate_de_zh());
+		break;
+	    case TRANSLATE_ZH_DE:
+		curWord.setNumCorrect_translate_zh_de(curWord.getNumCorrect_translate_zh_de() + 1);
+		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
+		break;
+	}
+	
 	loadNextWord();
     }//GEN-LAST:event_cmdCorrectActionPerformed
 
     private void cmdResetWordStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdResetWordStatsActionPerformed
 	for (Word w : allWords) {
-	    w.setTimesGottenWrong(0);
-	    w.setTimesGottenRight(0);
+	    w.setNumWrong_simplified_hanzi(0);
+	    w.setNumCorrect_simplified_hanzi(0);
 	}
 
 	console.logMsg("Saving current word data...");
