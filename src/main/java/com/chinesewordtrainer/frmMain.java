@@ -30,6 +30,17 @@ public class frmMain extends javax.swing.JFrame {
 	console = new ConsoleHandler(txtConsole);
 	csvReader = CSVReader.getInstance(console);
 	allWords = csvReader.readWords();
+	
+	if(allWords == null || allWords.isEmpty()) {
+	    console.logErr("ERROR: Could not build word list, allWords was null or empty. Please restart program!");
+	    cboLearningMode.setEnabled(false);
+	    cmdCorrect.setEnabled(false);
+	    cmdLearningModeApply.setEnabled(false);
+	    cmdResetWordStats.setEnabled(false);
+	    cmdRevealAnswer.setEnabled(false);
+	    cmdWrong.setEnabled(false);
+	    
+	}
 
 	cmdRevealAnswer.setEnabled(false);
 	cmdWrong.setEnabled(false);
@@ -389,18 +400,33 @@ public class frmMain extends javax.swing.JFrame {
 	switch (selectedMode) {
 	    case "Learn simplified Hanzi":
 		curLearningMode = LearningMode.SIMPLIFIED_HANZI;
+		txtQuestion.setFont(mediumFont);
+		txtHint.setFont(smallFont);
+		txtAnswer.setFont(largeFont);
 		break;
 	    case "Learn traditional Hanzi":
 		curLearningMode = LearningMode.TRADITIONAL_HANZI;
+		txtQuestion.setFont(largeFont);
+		txtHint.setFont(smallFont);
+		txtAnswer.setFont(largeFont);
 		break;
 	    case "Learn Pinyin":
 		curLearningMode = LearningMode.PINYIN;
+		txtQuestion.setFont(largeFont);
+		txtHint.setFont(smallFont);
+		txtAnswer.setFont(mediumFont);
 		break;
 	    case "Learn Translations de -> zh":
 		curLearningMode = LearningMode.TRANSLATE_DE_ZH;
+		txtQuestion.setFont(smallFont);
+		txtHint.setFont(mediumFont);
+		txtAnswer.setFont(largeFont);
 		break;
 	    case "Learn Translations zh -> de":
 		curLearningMode = LearningMode.TRANSLATE_ZH_DE;
+		txtQuestion.setFont(largeFont);
+		txtHint.setFont(mediumFont);
+		txtAnswer.setFont(smallFont);
 		break;
 	    default:
 		curLearningMode = null;
@@ -440,7 +466,7 @@ public class frmMain extends javax.swing.JFrame {
 
 	// Collections.shuffle(curList);
 	double beta = ((Number) numShuffleBeta.getValue()).doubleValue();
-	weightedShuffle.shuffle(curList, beta, curLearningMode);
+	weightedShuffle.interleavingShuffle(curList, beta, curLearningMode);
 
 	if (curList.size() == 0) {
 	    console.logErr("ERROR: Building session list resulted in a list with 0 entries! Aborting applyLearningMode(). Please restart program!");
@@ -467,10 +493,6 @@ public class frmMain extends javax.swing.JFrame {
 	cmdWrong.setEnabled(false);
 	cmdCorrect.setEnabled(false);
 
-	txtQuestion.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 48));
-	txtHint.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 24));
-	txtAnswer.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 48));
-
 	switch (curLearningMode) {
 	    case SIMPLIFIED_HANZI:
 		txtQuestion.setText(curWord.getPinyin());
@@ -488,7 +510,6 @@ public class frmMain extends javax.swing.JFrame {
 		txtAnswer.setText("");
 		break;
 	    case TRANSLATE_DE_ZH:
-		txtQuestion.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 24));
 		txtQuestion.setText(curWord.getTranslation());
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
@@ -513,14 +534,6 @@ public class frmMain extends javax.swing.JFrame {
 		w.setNumWrong_simplified_hanzi(0);
 		w.setNumCorrect_simplified_hanzi(0);
 	    }
-	    
-//	    for (Word w : allWords) {
-//		int r2 = ThreadLocalRandom.current().nextInt(0, 21);
-//		int r1 = ThreadLocalRandom.current().nextInt(0, 21);
-//		
-//		w.setTimesGottenWrong(r1);
-//		w.setTimesGottenRight(r2);
-//	    }
 	}
 
 	csvReader.writeToFile(allWords);
@@ -545,7 +558,6 @@ public class frmMain extends javax.swing.JFrame {
 		    break;
 		case TRANSLATE_ZH_DE:
 		    txtAnswer.setText(curWord.getTranslation());
-		    txtAnswer.setFont(mediumFont);
 		    break;
 	    }
 	} else {
@@ -571,11 +583,9 @@ public class frmMain extends javax.swing.JFrame {
 		    txtHint.setText(curWord.getTranslation());
 		    break;
 		case TRANSLATE_DE_ZH:
-		    txtHint.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 48));
 		    txtHint.setText(curWord.getPinyin());
 		    break;
 		case TRANSLATE_ZH_DE:
-		    txtHint.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 48));
 		    txtHint.setText(curWord.getPinyin());
 		    break;
 	    }
