@@ -6,6 +6,7 @@
 package com.chinesewordtrainer;
 
 import static com.chinesewordtrainer.LearningMode.*;
+import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -53,6 +54,52 @@ public class Word {
     double difficulty_translate_zh_de;
     static int statFieldCount = 15;
     
+    public Word(String simpleHanzi, String traditionalHanzi, String pinyin, String translation, String lesson, String standardPronounciation, String zhuyin, String learningStats) throws IllegalArgumentException {
+	this.simpleHanzi = simpleHanzi;
+	this.traditionalHanzi = traditionalHanzi;
+	this.pinyin = pinyin;
+	this.translation = translation;
+	this.lesson = lesson;
+	this.standardPronounciation = standardPronounciation;
+	
+	String[] learningStats_parts = learningStats.replace("[", "").replace("]", "").split(Pattern.quote("|"));
+	
+	if(learningStats_parts.length != (statFieldCount / 3)) {
+	    throw new IllegalArgumentException("ERROR in converting stat fields in Word constructor, possible program version mismatch. Expected: " + (statFieldCount / 3) + " parts, instead extracted: " + learningStats_parts.length + " parts. "
+	    + " learningStats String: " + learningStats);
+	}
+	
+	String[] ls_1 = learningStats_parts[0].split("-");
+	
+	numWrong_simplified_hanzi = Integer.parseInt(ls_1[0]);
+	numCorrect_simplified_hanzi = Integer.parseInt(ls_1[1]);
+	recalcDifficulty(SIMPLIFIED_HANZI);
+	
+	String[] ls_2 = learningStats_parts[1].split("-");
+	
+	numWrong_traditional_hanzi = Integer.parseInt(ls_2[0]);
+	numCorrect_traditional_hanzi = Integer.parseInt(ls_2[1]);
+	recalcDifficulty(TRADITIONAL_HANZI);
+	
+	String[] ls_3 = learningStats_parts[2].split("-");
+	
+	numWrong_pinyin = Integer.parseInt(ls_3[0]);
+	numCorrect_pinyin = Integer.parseInt(ls_3[1]);
+	recalcDifficulty(PINYIN);
+	
+	String[] ls_4 = learningStats_parts[3].split("-");
+	
+	numWrong_translate_de_zh = Integer.parseInt(ls_4[0]);
+	numCorrect_translate_de_zh = Integer.parseInt(ls_4[1]);
+	recalcDifficulty(TRANSLATE_DE_ZH);
+	
+	String[] ls_5 = learningStats_parts[4].split("-");
+	
+	numWrong_translate_zh_de = Integer.parseInt(ls_5[0]);
+	numCorrect_translate_zh_de = Integer.parseInt(ls_5[1]);
+	recalcDifficulty(TRANSLATE_ZH_DE);
+    }
+    
     public Word(String guid, String simpleHanzi, String traditionalHanzi, String pinyin, String translation, String examples, String notes, String lesson, String standardPronounciation, 
 	    boolean createFindRadical, boolean createFindTraditionalRadical, boolean createWriteSimpleHanzi, String Zhuyin, boolean createReadTraditionalHanzi, 
 	    boolean createWriteTraditionalHanzi, String learningStats) throws IllegalArgumentException {
@@ -72,10 +119,10 @@ public class Word {
 	this.createReadTraditionalHanzi = createReadTraditionalHanzi;
 	this.createWriteTraditionalHanzi = createWriteTraditionalHanzi;
 	
-	String[] learningStats_parts = learningStats.replace("[", "").replace("]", "").split("|");
+	String[] learningStats_parts = learningStats.replace("[", "").replace("]", "").split(Pattern.quote("|"));
 	
-	if(learningStats_parts.length != statFieldCount) {
-	    throw new IllegalArgumentException("ERROR in converting stat fields in Word constructor, possible program version mismatch. Expected: " + statFieldCount + " parts, instead extracted: " + learningStats_parts.length + " parts. "
+	if(learningStats_parts.length != (statFieldCount / 3)) {
+	    throw new IllegalArgumentException("ERROR in converting stat fields in Word constructor, possible program version mismatch. Expected: " + (statFieldCount / 3) + " parts, instead extracted: " + learningStats_parts.length + " parts. "
 	    + " learningStats String: " + learningStats);
 	}
 	
@@ -117,6 +164,10 @@ public class Word {
 		    difficulty_simplified_hanzi = 0;
 		} else {
 		    difficulty_simplified_hanzi = numWrong_simplified_hanzi / (double) (numCorrect_simplified_hanzi + numWrong_simplified_hanzi);
+		    
+		    if(difficulty_simplified_hanzi < (1d/100000d)) {
+			difficulty_simplified_hanzi = 1d/100000d;
+		    }
 		}
 		break;
 	    case TRADITIONAL_HANZI:
@@ -124,6 +175,10 @@ public class Word {
 		    difficulty_traditional_hanzi = 0;
 		} else {
 		    difficulty_traditional_hanzi = numWrong_traditional_hanzi / (double) (numCorrect_traditional_hanzi + numWrong_traditional_hanzi);
+		    
+		    if(difficulty_traditional_hanzi < (1d/100000d)) {
+			difficulty_traditional_hanzi = 1d/100000d;
+		    }
 		}
 		break;
 	    case PINYIN:
@@ -131,6 +186,10 @@ public class Word {
 		    difficulty_pinyin = 0;
 		} else {
 		    difficulty_pinyin = numWrong_pinyin / (double) (numCorrect_pinyin + numWrong_pinyin);
+		    
+		    if(difficulty_pinyin < (1d/100000d)) {
+			difficulty_pinyin = 1d/100000d;
+		    }
 		}
 		break;
 	    case TRANSLATE_DE_ZH:
@@ -138,6 +197,10 @@ public class Word {
 		    difficulty_translate_de_zh = 0;
 		} else {
 		    difficulty_translate_de_zh = numWrong_translate_de_zh / (double) (numCorrect_translate_de_zh + numWrong_translate_de_zh);
+		    
+		    if(difficulty_translate_de_zh < (1d/100000d)) {
+			difficulty_translate_de_zh = 1d/100000d;
+		    }
 		}
 		break;
 	    case TRANSLATE_ZH_DE:
@@ -145,6 +208,10 @@ public class Word {
 		    difficulty_translate_zh_de = 0;
 		} else {
 		    difficulty_translate_zh_de = numWrong_translate_zh_de / (double) (numCorrect_translate_zh_de + numWrong_translate_zh_de);
+		    
+		    if(difficulty_translate_zh_de < (1d/100000d)) {
+			difficulty_translate_zh_de = 1d/100000d;
+		    }
 		}
 		break;
 	}

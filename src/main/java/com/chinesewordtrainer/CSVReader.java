@@ -53,6 +53,10 @@ public class CSVReader {
 	
 	result = readCSVFile();
 	
+	if(result == null || result.isEmpty()) {
+	    return null;
+	}
+	
 	int counter = 0;
 	
 	for(Word w : result) {
@@ -99,28 +103,83 @@ public class CSVReader {
 		    String[] s1_2 = s1[2].split(";");
 		    
 		    try {
-			Word w = new Word(s1_1[0], s1_1[1], s1_1[2], s1_1[3], s1[1], s1_2[1], s1_2[2], s1_2[3], s1_2[4], Boolean.parseBoolean(s1_2[5]), Boolean.parseBoolean(s1_2[6]), Boolean.parseBoolean(s1_2[7]), s1_2[8], Boolean.parseBoolean(s1_2[9]), Boolean.parseBoolean(s1_2[10]), "" + Integer.parseInt(s1_2[11]) + "-" + Integer.parseInt(s1_2[12]));
+			Word w = new Word(s1_1[0], s1_1[1], s1_1[2], s1[1], s1_2[1], s1_2[2], s1_2[3], s1_2[4]);
 			result.add(w);
 			// console.cprintln("Created word: " + w.toString());
 		    } catch (Exception e) {
 			console.logErr("ERROR in CSVReader.readCSVFile(): Cannot build word for line \"" + line + "\". Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+			return null;
 		    }
 		} else if(s1.length == 1) {
 		    String[] s1_1 = s1[0].split(";");
 		    
 		    try {
-			Word w = new Word(s1_1[0], s1_1[1], s1_1[2], s1_1[3], s1_1[4], s1_1[5], s1_1[6], s1_1[7], s1_1[8], Boolean.parseBoolean(s1_1[9]), Boolean.parseBoolean(s1_1[10]), Boolean.parseBoolean(s1_1[11]), s1_1[12], Boolean.parseBoolean(s1_1[13]), Boolean.parseBoolean(s1_1[14]), "" + Integer.parseInt(s1_1[15]) + "-" + Integer.parseInt(s1_1[16]));
+			Word w = new Word(s1_1[0], s1_1[1], s1_1[2], s1_1[3], s1_1[4], s1_1[5], s1_1[6], s1_1[7]);
 			result.add(w);
 			// console.cprintln("Created word: " + w.toString());
 		    } catch (Exception e) {
 			console.logErr("ERROR in CSVReader.readCSVFile(): Cannot build word for line \"" + line + "\". Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+			return null;
 		    }
 		} else {
 		    console.logErr("ERROR in CSVReader.readCSVFile(): Cannot build word for line \"" + line + "\". Reason: s1.length=" + s1.length + " (Should be 1 or 3)");
+		    return null;
 		}
 	    }
 	} catch (IOException e) {
 	    console.logErr("ERROR in CSVReader.readCSVFile(): " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+	    return null;
+	}
+	
+	return result;
+    }
+    
+    private ArrayList<Word> readCSVFile_old2() {
+	ArrayList<Word> result = new ArrayList<>();
+	
+	System.out.println("Reading CSV-File...");
+	
+	try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("AllWords.txt"), "UTF-8"))) {
+	    String line;
+	    
+	    while((line = reader.readLine()) != null) {
+		String[] s1 = line.split("\"");
+		
+		if(s1.length == 3) {
+		    String[] s1_1 = s1[0].split(";");
+		    String[] s1_2 = s1[2].split(";");
+		    
+		    try {
+			Word w = new Word(s1_1[0], s1_1[1], s1_1[2], s1_1[3], s1[1], s1_2[1], s1_2[2], s1_2[3], s1_2[4], Boolean.parseBoolean(s1_2[5]), Boolean.parseBoolean(s1_2[6]), 
+				Boolean.parseBoolean(s1_2[7]), s1_2[8], Boolean.parseBoolean(s1_2[9]), Boolean.parseBoolean(s1_2[10]), 
+				"" + s1_2[11] + "-" + s1_2[12] + "|0-0|0-0|0-0|0-0");
+			result.add(w);
+			// console.cprintln("Created word: " + w.toString());
+		    } catch (Exception e) {
+			console.logErr("ERROR in CSVReader.readCSVFile(): Cannot build word for line \"" + line + "\". Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+			return null;
+		    }
+		} else if(s1.length == 1) {
+		    String[] s1_1 = s1[0].split(";");
+		    
+		    try {
+			Word w = new Word(s1_1[0], s1_1[1], s1_1[2], s1_1[3], s1_1[4], s1_1[5], s1_1[6], s1_1[7], s1_1[8], Boolean.parseBoolean(s1_1[9]), 
+				Boolean.parseBoolean(s1_1[10]), Boolean.parseBoolean(s1_1[11]), s1_1[12], Boolean.parseBoolean(s1_1[13]), 
+				Boolean.parseBoolean(s1_1[14]), "" + s1_1[15] + "-" + s1_1[16] + "|0-0|0-0|0-0|0-0");
+			result.add(w);
+			// console.cprintln("Created word: " + w.toString());
+		    } catch (Exception e) {
+			console.logErr("ERROR in CSVReader.readCSVFile(): Cannot build word for line \"" + line + "\". Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+			return null;
+		    }
+		} else {
+		    console.logErr("ERROR in CSVReader.readCSVFile(): Cannot build word for line \"" + line + "\". Reason: s1.length=" + s1.length + " (Should be 1 or 3)");
+		    return null;
+		}
+	    }
+	} catch (IOException e) {
+	    console.logErr("ERROR in CSVReader.readCSVFile(): " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+	    return null;
 	}
 	
 	return result;

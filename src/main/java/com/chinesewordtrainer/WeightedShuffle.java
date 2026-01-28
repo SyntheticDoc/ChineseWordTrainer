@@ -74,6 +74,8 @@ public class WeightedShuffle {
 	// 4) merge word lists: random slot pattern over full list
 	int n = words.size();
 	int u = unknown.size();
+	
+	System.out.println("Unknown words currently in list: " + u);
 
 	List<Boolean> slots = new ArrayList<>(n);
 	

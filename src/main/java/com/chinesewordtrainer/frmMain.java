@@ -486,6 +486,12 @@ public class frmMain extends javax.swing.JFrame {
 	    curListIndex = 0;
 	}
 	
+	if((curSessionCorrect + curSessionWrong) % 10 == 0) {
+	    console.logMsg("Saving current word data...");
+	    csvReader.writeToFile(allWords);
+	    console.logMsg("Current word data successfully saved!");
+	}
+	
 	console.cprintln("  Word " + curListIndex + " / " + curList.size());
 
 	curWord = curList.get(curListIndex);
@@ -620,6 +626,10 @@ public class frmMain extends javax.swing.JFrame {
 		break;
 	}
 	
+	curSessionWrong++;
+	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: " + 
+		String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
+	
 	loadNextWord();
     }//GEN-LAST:event_cmdWrongActionPerformed
 
@@ -646,6 +656,10 @@ public class frmMain extends javax.swing.JFrame {
 		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
 		break;
 	}
+	
+	curSessionCorrect++;
+	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: " + 
+		String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
 	
 	loadNextWord();
     }//GEN-LAST:event_cmdCorrectActionPerformed
@@ -752,6 +766,9 @@ public class frmMain extends javax.swing.JFrame {
     boolean[] lessons;
     Word curWord;
     WeightedShuffle weightedShuffle;
+    
+    int curSessionWrong = 0;
+    int curSessionCorrect = 0;
     
     Font smallFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12);
     Font mediumFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 24);
