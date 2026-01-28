@@ -81,7 +81,7 @@
                                   <Component id="cmdCorrect" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="cmdWrong" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="253" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="297" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -121,7 +121,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="1"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="48" style="0"/>
+              <Font name="FangSong" size="48" style="0"/>
             </Property>
             <Property name="rows" type="int" value="2"/>
             <Property name="text" type="java.lang.String" value="Question"/>
@@ -144,7 +144,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="1"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="24" style="0"/>
+              <Font name="FangSong" size="24" style="0"/>
             </Property>
             <Property name="rows" type="int" value="2"/>
             <Property name="text" type="java.lang.String" value="Click to reveal hint"/>
@@ -170,7 +170,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="1"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="48" style="0"/>
+              <Font name="FangSong" size="48" style="0"/>
             </Property>
             <Property name="rows" type="int" value="2"/>
             <Property name="text" type="java.lang.String" value="Solution"/>
@@ -433,13 +433,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="numShuffleBeta" min="-2" pref="65" max="-2" attributes="0"/>
                       </Group>
                       <Component id="chkTradHanziOnlyIfDifference" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkOnlyUnknownWords" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="94" max="32767" attributes="0"/>
+                  <EmptySpace pref="98" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -452,6 +454,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="chkTradHanziOnlyIfDifference" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="chkOnlyUnknownWords" min="-2" pref="22" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -473,6 +477,11 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Weighted shuffle Beta"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="chkOnlyUnknownWords">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Include only words not yet learned in word list"/>
           </Properties>
         </Component>
       </SubComponents>

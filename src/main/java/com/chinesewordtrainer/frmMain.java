@@ -30,8 +30,8 @@ public class frmMain extends javax.swing.JFrame {
 	console = new ConsoleHandler(txtConsole);
 	csvReader = CSVReader.getInstance(console);
 	allWords = csvReader.readWords();
-	
-	if(allWords == null || allWords.isEmpty()) {
+
+	if (allWords == null || allWords.isEmpty()) {
 	    console.logErr("ERROR: Could not build word list, allWords was null or empty. Please restart program!");
 	    cboLearningMode.setEnabled(false);
 	    cmdCorrect.setEnabled(false);
@@ -39,20 +39,20 @@ public class frmMain extends javax.swing.JFrame {
 	    cmdResetWordStats.setEnabled(false);
 	    cmdRevealAnswer.setEnabled(false);
 	    cmdWrong.setEnabled(false);
-	    
+
 	}
 
 	cmdRevealAnswer.setEnabled(false);
 	cmdWrong.setEnabled(false);
 	cmdCorrect.setEnabled(false);
-	
+
 	weightedShuffle = new WeightedShuffle(console, isDevMode);
 
 	if (!isDevMode) {
 	    cmdResetWordStats.setEnabled(false);
 	    cmdResetWordStats.setVisible(false);
 	}
-	
+
 	// Custom JSpinner-implementation for WeightedShuffleBeta-Spinner
 	SpinnerNumberModel betaModel = new SpinnerNumberModel(1.0, 0.0, 15.0, 0.1);
 	numShuffleBeta.setModel(betaModel);
@@ -97,6 +97,7 @@ public class frmMain extends javax.swing.JFrame {
         chkTradHanziOnlyIfDifference = new javax.swing.JCheckBox();
         numShuffleBeta = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
+        chkOnlyUnknownWords = new javax.swing.JCheckBox();
         cmdRevealAnswer = new javax.swing.JButton();
         cmdResetWordStats = new javax.swing.JButton();
 
@@ -106,14 +107,14 @@ public class frmMain extends javax.swing.JFrame {
 
         txtQuestion.setEditable(false);
         txtQuestion.setColumns(1);
-        txtQuestion.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
+        txtQuestion.setFont(new java.awt.Font("FangSong", 0, 48)); // NOI18N
         txtQuestion.setRows(2);
         txtQuestion.setText("Question");
         jScrollPane2.setViewportView(txtQuestion);
 
         txtHint.setEditable(false);
         txtHint.setColumns(1);
-        txtHint.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        txtHint.setFont(new java.awt.Font("FangSong", 0, 24)); // NOI18N
         txtHint.setRows(2);
         txtHint.setText("Click to reveal hint");
         txtHint.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,7 +126,7 @@ public class frmMain extends javax.swing.JFrame {
 
         txtAnswer.setEditable(false);
         txtAnswer.setColumns(1);
-        txtAnswer.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
+        txtAnswer.setFont(new java.awt.Font("FangSong", 0, 48)); // NOI18N
         txtAnswer.setRows(2);
         txtAnswer.setText("Solution");
         jScrollPane4.setViewportView(txtAnswer);
@@ -282,6 +283,8 @@ public class frmMain extends javax.swing.JFrame {
 
         jLabel1.setText("Weighted shuffle Beta");
 
+        chkOnlyUnknownWords.setText("Include only words not yet learned in word list");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -290,11 +293,13 @@ public class frmMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numShuffleBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chkTradHanziOnlyIfDifference))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(chkTradHanziOnlyIfDifference)
+                    .addComponent(chkOnlyUnknownWords))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,6 +309,8 @@ public class frmMain extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkTradHanziOnlyIfDifference)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkOnlyUnknownWords, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -373,7 +380,7 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 253, Short.MAX_VALUE)))
+                                .addGap(0, 297, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -455,10 +462,18 @@ public class frmMain extends javax.swing.JFrame {
 		if (lessons[i] && Integer.parseInt(w.getLesson()) == i) {
 		    if (curLearningMode == LearningMode.TRADITIONAL_HANZI && chkTradHanziOnlyIfDifference.isSelected()) {
 			if (!(w.getSimpleHanzi().equals(w.getTraditionalHanzi()))) {
-			    curList.add(w);
+			    if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
+				curList.add(w);
+			    } else if (!chkOnlyUnknownWords.isSelected()) {
+				curList.add(w);
+			    }
 			}
 		    } else {
-			curList.add(w);
+			if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
+			    curList.add(w);
+			} else if (!chkOnlyUnknownWords.isSelected()) {
+			    curList.add(w);
+			}
 		    }
 		}
 	    }
@@ -485,13 +500,13 @@ public class frmMain extends javax.swing.JFrame {
 	    console.logMsg("End of list reached, restarting list...");
 	    curListIndex = 0;
 	}
-	
-	if((curSessionCorrect + curSessionWrong) % 10 == 0) {
+
+	if ((curSessionCorrect + curSessionWrong) % 10 == 0) {
 	    console.logMsg("Saving current word data...");
 	    csvReader.writeToFile(allWords);
 	    console.logMsg("Current word data successfully saved!");
 	}
-	
+
 	console.cprintln("  Word " + curListIndex + " / " + curList.size());
 
 	curWord = curList.get(curListIndex);
@@ -528,7 +543,7 @@ public class frmMain extends javax.swing.JFrame {
 	}
 
 	curListIndex++;
-	
+
 	repaintCustomTextFields();
     }
 
@@ -572,7 +587,7 @@ public class frmMain extends javax.swing.JFrame {
 
 	cmdWrong.setEnabled(true);
 	cmdCorrect.setEnabled(true);
-	
+
 	repaintCustomTextFields();
     }//GEN-LAST:event_cmdRevealAnswerActionPerformed
 
@@ -598,12 +613,12 @@ public class frmMain extends javax.swing.JFrame {
 	} else {
 	    JOptionPane.showMessageDialog(this, "Please start a learning session with the menu on the right side first!", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	repaintCustomTextFields();
     }//GEN-LAST:event_txtHintMousePressed
 
     private void cmdWrongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdWrongActionPerformed
-	switch(curLearningMode) {
+	switch (curLearningMode) {
 	    case SIMPLIFIED_HANZI:
 		curWord.setNumWrong_simplified_hanzi(curWord.getNumWrong_simplified_hanzi() + 1);
 		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
@@ -625,16 +640,16 @@ public class frmMain extends javax.swing.JFrame {
 		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
 		break;
 	}
-	
+
 	curSessionWrong++;
-	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: " + 
-		String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
-	
+	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: "
+		+ String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
+
 	loadNextWord();
     }//GEN-LAST:event_cmdWrongActionPerformed
 
     private void cmdCorrectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCorrectActionPerformed
-	switch(curLearningMode) {
+	switch (curLearningMode) {
 	    case SIMPLIFIED_HANZI:
 		curWord.setNumCorrect_simplified_hanzi(curWord.getNumCorrect_simplified_hanzi() + 1);
 		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
@@ -656,11 +671,11 @@ public class frmMain extends javax.swing.JFrame {
 		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
 		break;
 	}
-	
+
 	curSessionCorrect++;
-	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: " + 
-		String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
-	
+	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: "
+		+ String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
+
 	loadNextWord();
     }//GEN-LAST:event_cmdCorrectActionPerformed
 
@@ -685,7 +700,7 @@ public class frmMain extends javax.swing.JFrame {
 	txtAnswer.revalidate();
 	txtAnswer.repaint();
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -735,6 +750,7 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkL7;
     private javax.swing.JCheckBox chkL8;
     private javax.swing.JCheckBox chkL9;
+    private javax.swing.JCheckBox chkOnlyUnknownWords;
     private javax.swing.JCheckBox chkTradHanziOnlyIfDifference;
     private javax.swing.JButton cmdCorrect;
     private javax.swing.JButton cmdEnd;
@@ -766,13 +782,13 @@ public class frmMain extends javax.swing.JFrame {
     boolean[] lessons;
     Word curWord;
     WeightedShuffle weightedShuffle;
-    
+
     int curSessionWrong = 0;
     int curSessionCorrect = 0;
-    
-    Font smallFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12);
-    Font mediumFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 24);
-    Font largeFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 48);
+
+    Font smallFont = new java.awt.Font("FangSong", java.awt.Font.PLAIN, 12);
+    Font mediumFont = new java.awt.Font("FangSong", java.awt.Font.PLAIN, 24);
+    Font largeFont = new java.awt.Font("FangSong", java.awt.Font.PLAIN, 48);
 
     boolean isDevMode = false;
 }
