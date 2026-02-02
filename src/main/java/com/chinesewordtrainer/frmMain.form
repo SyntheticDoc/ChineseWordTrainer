@@ -27,18 +27,25 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="370" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jScrollPane2" min="-2" pref="375" max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" min="-2" pref="375" max="-2" attributes="0"/>
-                  <Component id="jScrollPane4" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="cmdWrong" min="-2" pref="176" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="cmdCorrect" min="-2" pref="176" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jScrollPane2" min="-2" pref="375" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" pref="375" max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="cmdWrong" min="-2" pref="176" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="cmdCorrect" min="-2" pref="176" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          <Component id="cmdRevealAnswer" min="-2" pref="289" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="cmdRevealAnswer" min="-2" pref="289" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="cmdPreviousFont" min="-2" pref="176" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cmdNextFont" min="-2" pref="176" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -81,7 +88,12 @@
                                   <Component id="cmdCorrect" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="cmdWrong" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="253" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cmdPreviousFont" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="cmdNextFont" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="220" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -280,12 +292,15 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="chkL5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL6" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="chkL7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="chkL14" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="chkL5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL6" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="chkL4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="chkL3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="chkL2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -293,11 +308,38 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="chkL12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL9" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL10" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL11" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="chkL9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="chkL15" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL17" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL16" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="chkL12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="chkL18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkL19" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cmdLessonsSelectAll" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cmdLessonsSelectNone" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -306,36 +348,63 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cmdLessonsSelectAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmdLessonsSelectNone" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="chkL1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL15" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="chkL2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="chkL6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="chkL9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL16" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="chkL10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkL17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL12" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkL18" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL19" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkL20" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkL2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkL14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkL3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkL4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chkL5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chkL6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chkL7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chkL8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -401,6 +470,68 @@
             <Component class="javax.swing.JCheckBox" name="chkL12">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lesson 12"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="cmdLessonsSelectAll">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Select all"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdLessonsSelectAllActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cmdLessonsSelectNone">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Select none"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdLessonsSelectNoneActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 13"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 14"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL15">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 15"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL16">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 16"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL17">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 17"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL20">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 20"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL19">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 19"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkL18">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Lesson 18"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>
           </SubComponents>
@@ -491,6 +622,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdResetWordStatsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdPreviousFont">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Previous font"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdPreviousFontActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdNextFont">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Next font"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdNextFontActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

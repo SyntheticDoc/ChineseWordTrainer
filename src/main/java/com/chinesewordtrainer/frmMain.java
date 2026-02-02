@@ -5,9 +5,15 @@
  */
 package com.chinesewordtrainer;
 
+import static com.chinesewordtrainer.LearningMode.PINYIN;
+import static com.chinesewordtrainer.LearningMode.SIMPLIFIED_HANZI;
+import static com.chinesewordtrainer.LearningMode.TRADITIONAL_HANZI;
+import static com.chinesewordtrainer.LearningMode.TRANSLATE_DE_ZH;
+import static com.chinesewordtrainer.LearningMode.TRANSLATE_ZH_DE;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,8 +36,8 @@ public class frmMain extends javax.swing.JFrame {
 	console = new ConsoleHandler(txtConsole);
 	csvReader = CSVReader.getInstance(console);
 	allWords = csvReader.readWords();
-	
-	if(allWords == null || allWords.isEmpty()) {
+
+	if (allWords == null || allWords.isEmpty()) {
 	    console.logErr("ERROR: Could not build word list, allWords was null or empty. Please restart program!");
 	    cboLearningMode.setEnabled(false);
 	    cmdCorrect.setEnabled(false);
@@ -39,24 +45,43 @@ public class frmMain extends javax.swing.JFrame {
 	    cmdResetWordStats.setEnabled(false);
 	    cmdRevealAnswer.setEnabled(false);
 	    cmdWrong.setEnabled(false);
-	    
+
 	}
 
 	cmdRevealAnswer.setEnabled(false);
 	cmdWrong.setEnabled(false);
 	cmdCorrect.setEnabled(false);
-	
+
 	weightedShuffle = new WeightedShuffle(console, isDevMode);
 
 	if (!isDevMode) {
 	    cmdResetWordStats.setEnabled(false);
 	    cmdResetWordStats.setVisible(false);
 	}
-	
+
 	// Custom JSpinner-implementation for WeightedShuffleBeta-Spinner
 	SpinnerNumberModel betaModel = new SpinnerNumberModel(1.0, 0.0, 15.0, 0.1);
 	numShuffleBeta.setModel(betaModel);
 	numShuffleBeta.setEditor(new javax.swing.JSpinner.NumberEditor(numShuffleBeta, "0.0"));
+
+	cmdPreviousFont.setVisible(false);
+	cmdPreviousFont.setEnabled(false);
+	cmdNextFont.setVisible(false);
+	cmdNextFont.setEnabled(false);
+
+	if (fontTest) {
+	    fonts = FontProbe.findFontFamilies(true);
+
+	    cmdPreviousFont.setVisible(true);
+	    cmdPreviousFont.setEnabled(true);
+	    cmdNextFont.setVisible(true);
+	    cmdNextFont.setEnabled(true);
+
+	    txtQuestion.setText("我们一起去图书馆吧！");
+	    txtAnswer.setText("ÜbäbÖbÄöüß!");
+
+	    changeFontTest();
+	}
     }
 
     /**
@@ -92,6 +117,16 @@ public class frmMain extends javax.swing.JFrame {
         chkL10 = new javax.swing.JCheckBox();
         chkL11 = new javax.swing.JCheckBox();
         chkL12 = new javax.swing.JCheckBox();
+        cmdLessonsSelectAll = new javax.swing.JButton();
+        cmdLessonsSelectNone = new javax.swing.JButton();
+        chkL13 = new javax.swing.JCheckBox();
+        chkL14 = new javax.swing.JCheckBox();
+        chkL15 = new javax.swing.JCheckBox();
+        chkL16 = new javax.swing.JCheckBox();
+        chkL17 = new javax.swing.JCheckBox();
+        chkL20 = new javax.swing.JCheckBox();
+        chkL19 = new javax.swing.JCheckBox();
+        chkL18 = new javax.swing.JCheckBox();
         cmdLearningModeApply = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         chkTradHanziOnlyIfDifference = new javax.swing.JCheckBox();
@@ -99,6 +134,8 @@ public class frmMain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cmdRevealAnswer = new javax.swing.JButton();
         cmdResetWordStats = new javax.swing.JButton();
+        cmdPreviousFont = new javax.swing.JButton();
+        cmdNextFont = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,6 +225,42 @@ public class frmMain extends javax.swing.JFrame {
 
         chkL12.setText("Lesson 12");
 
+        cmdLessonsSelectAll.setText("Select all");
+        cmdLessonsSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLessonsSelectAllActionPerformed(evt);
+            }
+        });
+
+        cmdLessonsSelectNone.setText("Select none");
+        cmdLessonsSelectNone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLessonsSelectNoneActionPerformed(evt);
+            }
+        });
+
+        chkL13.setText("Lesson 13");
+
+        chkL14.setText("Lesson 14");
+
+        chkL15.setText("Lesson 15");
+        chkL15.setToolTipText("");
+
+        chkL16.setText("Lesson 16");
+        chkL16.setToolTipText("");
+
+        chkL17.setText("Lesson 17");
+        chkL17.setToolTipText("");
+
+        chkL20.setText("Lesson 20");
+        chkL20.setToolTipText("");
+
+        chkL19.setText("Lesson 19");
+        chkL19.setToolTipText("");
+
+        chkL18.setText("Lesson 18");
+        chkL18.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -195,52 +268,95 @@ public class frmMain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkL5)
-                    .addComponent(chkL6)
-                    .addComponent(chkL7)
-                    .addComponent(chkL8)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(chkL7)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkL14))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkL5)
+                            .addComponent(chkL6)
                             .addComponent(chkL4)
                             .addComponent(chkL3)
                             .addComponent(chkL2)
                             .addComponent(chkL1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkL12)
-                            .addComponent(chkL9)
-                            .addComponent(chkL10)
-                            .addComponent(chkL11))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkL9)
+                                    .addComponent(chkL10)
+                                    .addComponent(chkL8))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkL15)
+                                    .addComponent(chkL17)
+                                    .addComponent(chkL16)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkL12)
+                                    .addComponent(chkL11)
+                                    .addComponent(chkL13))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkL18)
+                                    .addComponent(chkL20)
+                                    .addComponent(chkL19)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cmdLessonsSelectAll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmdLessonsSelectNone)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdLessonsSelectAll)
+                    .addComponent(cmdLessonsSelectNone))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkL1)
-                    .addComponent(chkL9))
+                    .addComponent(chkL8)
+                    .addComponent(chkL15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(chkL2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkL6)
+                            .addComponent(chkL13)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkL9)
+                            .addComponent(chkL16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkL10)
+                            .addComponent(chkL17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(chkL18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkL20)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkL2)
-                    .addComponent(chkL10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkL3)
-                    .addComponent(chkL11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkL4)
-                    .addComponent(chkL12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkL5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkL6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkL7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkL8)
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(chkL7)
+                    .addComponent(chkL14))
+                .addContainerGap())
         );
 
         cmdLearningModeApply.setText("Apply and restart session");
@@ -321,6 +437,20 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
 
+        cmdPreviousFont.setText("Previous font");
+        cmdPreviousFont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdPreviousFontActionPerformed(evt);
+            }
+        });
+
+        cmdNextFont.setText("Next font");
+        cmdNextFont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdNextFontActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -329,17 +459,22 @@ public class frmMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(43, 43, 43)
+                            .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -373,7 +508,11 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 253, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 220, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,7 +573,8 @@ public class frmMain extends javax.swing.JFrame {
 	}
 
 	lessons = new boolean[]{false, chkL1.isSelected(), chkL2.isSelected(), chkL3.isSelected(), chkL4.isSelected(), chkL5.isSelected(), chkL6.isSelected(), chkL7.isSelected(), chkL8.isSelected(),
-	    chkL9.isSelected(), chkL10.isSelected(), chkL11.isSelected(), chkL12.isSelected()};
+	    chkL9.isSelected(), chkL10.isSelected(), chkL11.isSelected(), chkL12.isSelected(), chkL13.isSelected(), chkL14.isSelected(), chkL15.isSelected(), chkL16.isSelected(), chkL17.isSelected(),
+	    chkL18.isSelected(), chkL19.isSelected(), chkL20.isSelected()};
 
 	System.out.print("Active lessons: ");
 
@@ -485,13 +625,13 @@ public class frmMain extends javax.swing.JFrame {
 	    console.logMsg("End of list reached, restarting list...");
 	    curListIndex = 0;
 	}
-	
-	if((curSessionCorrect + curSessionWrong) % 10 == 0) {
+
+	if ((curSessionCorrect + curSessionWrong) % 10 == 0) {
 	    console.logMsg("Saving current word data...");
 	    csvReader.writeToFile(allWords);
 	    console.logMsg("Current word data successfully saved!");
 	}
-	
+
 	console.cprintln("  Word " + curListIndex + " / " + curList.size());
 
 	curWord = curList.get(curListIndex);
@@ -528,13 +668,11 @@ public class frmMain extends javax.swing.JFrame {
 	}
 
 	curListIndex++;
-	
+
 	repaintCustomTextFields();
     }
 
     private void cmdEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEndActionPerformed
-	console.logMsg("Saving current word data...");
-
 	if (isDevMode) {
 	    for (Word w : allWords) {
 		w.setNumWrong_simplified_hanzi(0);
@@ -542,8 +680,26 @@ public class frmMain extends javax.swing.JFrame {
 	    }
 	}
 
-	csvReader.writeToFile(allWords);
-	console.logMsg("Current word data successfully saved. Exiting program...");
+	if (isListContentChanged) {
+	    console.logMsg("Saving current word data...");
+	    csvReader.writeToFile(allWords);
+	    console.logMsg("Current word data successfully saved. Exiting program...");
+	} else if (!skipSaveDialog) {
+	    int choice = JOptionPane.showConfirmDialog(
+		    this,
+		    "Word list is unchanged, save anyway?",
+		    "Save word list without changes?",
+		    JOptionPane.YES_NO_OPTION,
+		    JOptionPane.QUESTION_MESSAGE
+	    );
+
+	    if (choice == JOptionPane.YES_OPTION) {
+		console.logMsg("Saving current word data...");
+		csvReader.writeToFile(allWords);
+		console.logMsg("Current word data successfully saved. Exiting program...");
+	    }
+	}
+
 	System.exit(0);
     }//GEN-LAST:event_cmdEndActionPerformed
 
@@ -572,11 +728,15 @@ public class frmMain extends javax.swing.JFrame {
 
 	cmdWrong.setEnabled(true);
 	cmdCorrect.setEnabled(true);
-	
-	repaintCustomTextFields();
+
+	revealHint(); // already includes repaintCustomTextFields()!
     }//GEN-LAST:event_cmdRevealAnswerActionPerformed
 
     private void txtHintMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtHintMousePressed
+	revealHint();
+    }//GEN-LAST:event_txtHintMousePressed
+
+    private void revealHint() {
 	if (curWord != null) {
 	    switch (curLearningMode) {
 		case SIMPLIFIED_HANZI:
@@ -598,69 +758,73 @@ public class frmMain extends javax.swing.JFrame {
 	} else {
 	    JOptionPane.showMessageDialog(this, "Please start a learning session with the menu on the right side first!", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	repaintCustomTextFields();
-    }//GEN-LAST:event_txtHintMousePressed
+    }
 
     private void cmdWrongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdWrongActionPerformed
-	switch(curLearningMode) {
+	switch (curLearningMode) {
 	    case SIMPLIFIED_HANZI:
 		curWord.setNumWrong_simplified_hanzi(curWord.getNumWrong_simplified_hanzi() + 1);
-		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
 		break;
 	    case TRADITIONAL_HANZI:
 		curWord.setNumWrong_traditional_hanzi(curWord.getNumWrong_traditional_hanzi() + 1);
-		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_traditional_hanzi() + " / " + curWord.getNumCorrect_traditional_hanzi());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_traditional_hanzi() + " / " + curWord.getNumCorrect_traditional_hanzi());
 		break;
 	    case PINYIN:
 		curWord.setNumWrong_pinyin(curWord.getNumWrong_pinyin() + 1);
-		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_pinyin() + " / " + curWord.getNumCorrect_pinyin());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_pinyin() + " / " + curWord.getNumCorrect_pinyin());
 		break;
 	    case TRANSLATE_DE_ZH:
 		curWord.setNumWrong_translate_de_zh(curWord.getNumWrong_translate_de_zh() + 1);
-		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_de_zh() + " / " + curWord.getNumCorrect_translate_de_zh());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_de_zh() + " / " + curWord.getNumCorrect_translate_de_zh());
 		break;
 	    case TRANSLATE_ZH_DE:
 		curWord.setNumWrong_translate_zh_de(curWord.getNumWrong_translate_zh_de() + 1);
-		console.cprintln("   Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
 		break;
 	}
-	
+
 	curSessionWrong++;
-	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: " + 
-		String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
-	
+	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: "
+		+ String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
+
+	isListContentChanged = true;
+
 	loadNextWord();
     }//GEN-LAST:event_cmdWrongActionPerformed
 
     private void cmdCorrectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCorrectActionPerformed
-	switch(curLearningMode) {
+	switch (curLearningMode) {
 	    case SIMPLIFIED_HANZI:
 		curWord.setNumCorrect_simplified_hanzi(curWord.getNumCorrect_simplified_hanzi() + 1);
-		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_simplified_hanzi() + " / " + curWord.getNumCorrect_simplified_hanzi());
 		break;
 	    case TRADITIONAL_HANZI:
 		curWord.setNumCorrect_traditional_hanzi(curWord.getNumCorrect_traditional_hanzi() + 1);
-		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_traditional_hanzi() + " / " + curWord.getNumCorrect_traditional_hanzi());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_traditional_hanzi() + " / " + curWord.getNumCorrect_traditional_hanzi());
 		break;
 	    case PINYIN:
 		curWord.setNumCorrect_pinyin(curWord.getNumCorrect_pinyin() + 1);
-		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_pinyin() + " / " + curWord.getNumCorrect_pinyin());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_pinyin() + " / " + curWord.getNumCorrect_pinyin());
 		break;
 	    case TRANSLATE_DE_ZH:
 		curWord.setNumCorrect_translate_de_zh(curWord.getNumCorrect_translate_de_zh() + 1);
-		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_de_zh() + " / " + curWord.getNumCorrect_translate_de_zh());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_de_zh() + " / " + curWord.getNumCorrect_translate_de_zh());
 		break;
 	    case TRANSLATE_ZH_DE:
 		curWord.setNumCorrect_translate_zh_de(curWord.getNumCorrect_translate_zh_de() + 1);
-		console.cprintln("   Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
 		break;
 	}
-	
+
 	curSessionCorrect++;
-	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: " + 
-		String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
-	
+	console.cprintln("Current session (correct/total): " + curSessionCorrect + "/" + (curSessionCorrect + curSessionWrong) + ", percentage: "
+		+ String.format("%.2f", (curSessionCorrect / (double) (curSessionCorrect + curSessionWrong)) * 100) + "%");
+
+	isListContentChanged = true;
+
 	loadNextWord();
     }//GEN-LAST:event_cmdCorrectActionPerformed
 
@@ -677,6 +841,70 @@ public class frmMain extends javax.swing.JFrame {
 	applyLearningMode();
     }//GEN-LAST:event_cmdResetWordStatsActionPerformed
 
+    private void cmdLessonsSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLessonsSelectAllActionPerformed
+	setAllLessonCheckmarks(true);
+    }//GEN-LAST:event_cmdLessonsSelectAllActionPerformed
+
+    private void cmdLessonsSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLessonsSelectNoneActionPerformed
+	setAllLessonCheckmarks(false);
+    }//GEN-LAST:event_cmdLessonsSelectNoneActionPerformed
+
+    private void cmdPreviousFontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPreviousFontActionPerformed
+	if (curFontIndex > 0) {
+	    curFontIndex--;
+	}
+
+	changeFontTest();
+    }//GEN-LAST:event_cmdPreviousFontActionPerformed
+
+    private void cmdNextFontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdNextFontActionPerformed
+	if (curFontIndex < (fonts.size() - 1)) {
+	    curFontIndex++;
+	}
+	changeFontTest();
+    }//GEN-LAST:event_cmdNextFontActionPerformed
+
+    private void changeFontTest() {
+	displayFont = fonts.get(curFontIndex);
+
+	console.cprintln("############\n   Display font: " + displayFont + " (" + curFontIndex + ")\n############");
+
+	smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 12);
+	mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
+	largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 48);
+
+	txtQuestion.setFont(largeFont);
+	txtAnswer.setFont(mediumFont);
+
+	System.out.println("Large font: " + largeFont.getFontName());
+	System.out.println("Medium font: " + mediumFont.getFontName());
+
+	repaintCustomTextFields();
+    }
+
+    private void setAllLessonCheckmarks(boolean val) {
+	chkL1.setSelected(val);
+	chkL2.setSelected(val);
+	chkL3.setSelected(val);
+	chkL4.setSelected(val);
+	chkL5.setSelected(val);
+	chkL6.setSelected(val);
+	chkL7.setSelected(val);
+	chkL8.setSelected(val);
+	chkL9.setSelected(val);
+	chkL10.setSelected(val);
+	chkL11.setSelected(val);
+	chkL12.setSelected(val);
+	chkL13.setSelected(val);
+	chkL14.setSelected(val);
+	chkL15.setSelected(val);
+	chkL16.setSelected(val);
+	chkL17.setSelected(val);
+	chkL18.setSelected(val);
+	chkL19.setSelected(val);
+	chkL20.setSelected(val);
+    }
+
     private void repaintCustomTextFields() {
 	txtQuestion.revalidate();
 	txtQuestion.repaint();
@@ -685,7 +913,7 @@ public class frmMain extends javax.swing.JFrame {
 	txtAnswer.revalidate();
 	txtAnswer.repaint();
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -727,7 +955,15 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkL10;
     private javax.swing.JCheckBox chkL11;
     private javax.swing.JCheckBox chkL12;
+    private javax.swing.JCheckBox chkL13;
+    private javax.swing.JCheckBox chkL14;
+    private javax.swing.JCheckBox chkL15;
+    private javax.swing.JCheckBox chkL16;
+    private javax.swing.JCheckBox chkL17;
+    private javax.swing.JCheckBox chkL18;
+    private javax.swing.JCheckBox chkL19;
     private javax.swing.JCheckBox chkL2;
+    private javax.swing.JCheckBox chkL20;
     private javax.swing.JCheckBox chkL3;
     private javax.swing.JCheckBox chkL4;
     private javax.swing.JCheckBox chkL5;
@@ -739,6 +975,10 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JButton cmdCorrect;
     private javax.swing.JButton cmdEnd;
     private javax.swing.JButton cmdLearningModeApply;
+    private javax.swing.JButton cmdLessonsSelectAll;
+    private javax.swing.JButton cmdLessonsSelectNone;
+    private javax.swing.JButton cmdNextFont;
+    private javax.swing.JButton cmdPreviousFont;
     private javax.swing.JButton cmdResetWordStats;
     private javax.swing.JButton cmdRevealAnswer;
     private javax.swing.JButton cmdWrong;
@@ -766,13 +1006,19 @@ public class frmMain extends javax.swing.JFrame {
     boolean[] lessons;
     Word curWord;
     WeightedShuffle weightedShuffle;
-    
+
     int curSessionWrong = 0;
     int curSessionCorrect = 0;
-    
-    Font smallFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12);
-    Font mediumFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 24);
-    Font largeFont = new java.awt.Font("Dialog", java.awt.Font.PLAIN, 48);
+
+    List<String> fonts;
+    int curFontIndex = 0;
+    String displayFont = "STKaiti";
+    Font smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 12);
+    Font mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
+    Font largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 48);
 
     boolean isDevMode = false;
+    boolean fontTest = false;
+    boolean skipSaveDialog = false;
+    boolean isListContentChanged = false;
 }
