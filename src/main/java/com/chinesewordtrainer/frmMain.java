@@ -132,6 +132,7 @@ public class frmMain extends javax.swing.JFrame {
         chkTradHanziOnlyIfDifference = new javax.swing.JCheckBox();
         numShuffleBeta = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
+        chkOnlyUnknownWords = new javax.swing.JCheckBox();
         cmdRevealAnswer = new javax.swing.JButton();
         cmdResetWordStats = new javax.swing.JButton();
         cmdPreviousFont = new javax.swing.JButton();
@@ -143,14 +144,14 @@ public class frmMain extends javax.swing.JFrame {
 
         txtQuestion.setEditable(false);
         txtQuestion.setColumns(1);
-        txtQuestion.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
+        txtQuestion.setFont(new java.awt.Font("FangSong", 0, 48)); // NOI18N
         txtQuestion.setRows(2);
         txtQuestion.setText("Question");
         jScrollPane2.setViewportView(txtQuestion);
 
         txtHint.setEditable(false);
         txtHint.setColumns(1);
-        txtHint.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        txtHint.setFont(new java.awt.Font("FangSong", 0, 24)); // NOI18N
         txtHint.setRows(2);
         txtHint.setText("Click to reveal hint");
         txtHint.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,7 +163,7 @@ public class frmMain extends javax.swing.JFrame {
 
         txtAnswer.setEditable(false);
         txtAnswer.setColumns(1);
-        txtAnswer.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
+        txtAnswer.setFont(new java.awt.Font("FangSong", 0, 54)); // NOI18N
         txtAnswer.setRows(2);
         txtAnswer.setText("Solution");
         jScrollPane4.setViewportView(txtAnswer);
@@ -398,6 +399,8 @@ public class frmMain extends javax.swing.JFrame {
 
         jLabel1.setText("Weighted shuffle Beta");
 
+        chkOnlyUnknownWords.setText("Include only words not yet learned in word list");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -406,11 +409,13 @@ public class frmMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numShuffleBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chkTradHanziOnlyIfDifference))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(chkTradHanziOnlyIfDifference)
+                    .addComponent(chkOnlyUnknownWords))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,6 +425,8 @@ public class frmMain extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkTradHanziOnlyIfDifference)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkOnlyUnknownWords, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -495,9 +502,9 @@ public class frmMain extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -512,7 +519,7 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 220, Short.MAX_VALUE)))
+                                .addGap(0, 186, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -595,10 +602,18 @@ public class frmMain extends javax.swing.JFrame {
 		if (lessons[i] && Integer.parseInt(w.getLesson()) == i) {
 		    if (curLearningMode == LearningMode.TRADITIONAL_HANZI && chkTradHanziOnlyIfDifference.isSelected()) {
 			if (!(w.getSimpleHanzi().equals(w.getTraditionalHanzi()))) {
-			    curList.add(w);
+			    if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
+				curList.add(w);
+			    } else if (!chkOnlyUnknownWords.isSelected()) {
+				curList.add(w);
+			    }
 			}
 		    } else {
-			curList.add(w);
+			if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
+			    curList.add(w);
+			} else if (!chkOnlyUnknownWords.isSelected()) {
+			    curList.add(w);
+			}
 		    }
 		}
 	    }
@@ -971,6 +986,7 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkL7;
     private javax.swing.JCheckBox chkL8;
     private javax.swing.JCheckBox chkL9;
+    private javax.swing.JCheckBox chkOnlyUnknownWords;
     private javax.swing.JCheckBox chkTradHanziOnlyIfDifference;
     private javax.swing.JButton cmdCorrect;
     private javax.swing.JButton cmdEnd;
@@ -1013,9 +1029,12 @@ public class frmMain extends javax.swing.JFrame {
     List<String> fonts;
     int curFontIndex = 0;
     String displayFont = "STKaiti";
-    Font smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 12);
-    Font mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
-    Font largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 48);
+    Font smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
+    Font mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 36);
+    Font largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 54);
+    // Font smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 12);
+    // Font mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
+    // Font largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 48);
 
     boolean isDevMode = false;
     boolean fontTest = false;
