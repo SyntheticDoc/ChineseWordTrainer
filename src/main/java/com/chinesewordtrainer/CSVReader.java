@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,9 +28,21 @@ import java.util.Scanner;
 public class CSVReader {
     private static CSVReader instance;
     private static ConsoleHandler console;
+    private Path dataFilePath;
     
     private CSVReader(ConsoleHandler console) {
 	this.console = console;
+	dataFilePath = Path.of("C:\\Users\\" + System.getProperty("user.name") + "\\OneDrive\\Sinologie\\AllWords.txt");
+	console.logMsg("Searching for data file at " + dataFilePath.toAbsolutePath().toString());
+	
+	if(!Files.exists(dataFilePath)) {
+	    console.logErr("Data file not found, falling back to default path...");
+	    dataFilePath = Path.of("AllWords.txt");
+	    console.logMsg("Loading data from " + dataFilePath.toAbsolutePath().toString());
+	} else {
+	    console.logMsg("Data file found, loading data...");
+	}
+	
     }
     
     public static CSVReader getInstance(ConsoleHandler console) {
@@ -73,7 +87,7 @@ public class CSVReader {
     }
     
     public void writeToFile(ArrayList<Word> words) {
-	try(Writer wr = new OutputStreamWriter(new FileOutputStream("AllWords.txt"), "UTF-8")) {
+	try(Writer wr = new OutputStreamWriter(new FileOutputStream(dataFilePath.toFile()), "UTF-8")) {
 	    for(Word w : words) {
 		wr.write(w.getCSVString());
 		wr.write("\n");
@@ -92,7 +106,7 @@ public class CSVReader {
 	
 	System.out.println("Reading CSV-File...");
 	
-	try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("AllWords.txt"), "UTF-8"))) {
+	try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dataFilePath.toFile()), "UTF-8"))) {
 	    String line;
 	    
 	    while((line = reader.readLine()) != null) {

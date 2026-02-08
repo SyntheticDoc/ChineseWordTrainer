@@ -667,9 +667,9 @@ public class frmMain extends javax.swing.JFrame {
 	    console.logMsg("Current word data successfully saved!");
 	}
 
-	console.cprintln("  Word " + curListIndex + " / " + curList.size());
-
 	curWord = curList.get(curListIndex);
+	
+	console.cprintln("  Word " + curListIndex + " / " + curList.size() + String.format(" (Difficulty: %.2f)", curWord.getDifficulty(curLearningMode)));
 
 	cmdWrong.setEnabled(false);
 	cmdCorrect.setEnabled(false);
