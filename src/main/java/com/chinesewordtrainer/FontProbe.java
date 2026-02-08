@@ -46,6 +46,8 @@ public class FontProbe {
         for (String fam : families) {
             Font f = new Font(fam, Font.PLAIN, 12);
 	    
+	    System.out.println(f.getFontName());
+	    
             if (f.canDisplayUpTo(required) == -1) {
                 hits.add(fam);
             }

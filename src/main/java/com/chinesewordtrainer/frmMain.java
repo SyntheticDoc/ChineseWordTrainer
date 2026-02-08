@@ -81,6 +81,26 @@ public class frmMain extends javax.swing.JFrame {
 	    txtAnswer.setText("ÜbäbÖbÄöüß!");
 
 	    changeFontTest();
+	} else {
+	    smallFont_latin = new java.awt.Font(displayFont_latin, java.awt.Font.PLAIN, 24);
+	    mediumFont_latin = new java.awt.Font(displayFont_latin, java.awt.Font.PLAIN, 36);
+	    largeFont_latin = new java.awt.Font(displayFont_latin, java.awt.Font.PLAIN, 54);
+	    smallFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 24);
+	    mediumFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 36);
+	    largeFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 54);
+	    
+	    txtQuestion.setFont(largeFont_hanzi);
+	    txtHint.setFont(smallFont_latin);
+	    txtAnswer.setFont(mediumFont_latin);
+	    
+	    txtQuestion.setText("欢迎使用中文单词训练器！");
+	    txtHint.setText("Willkommen bei ChineseWordTrainer!");
+	    txtAnswer.setText("Willkommen bei ChineseWordTrainer!");
+	    
+	    console.logMsg("displayFont_latin: " + displayFont_latin);
+	    console.logMsg("displayFont_hanzi: " + largeFont_hanzi.getFontName());
+	    
+	    repaintCustomTextFields();
 	}
     }
 
@@ -546,33 +566,33 @@ public class frmMain extends javax.swing.JFrame {
 	switch (selectedMode) {
 	    case "Learn simplified Hanzi":
 		curLearningMode = LearningMode.SIMPLIFIED_HANZI;
-		txtQuestion.setFont(mediumFont);
-		txtHint.setFont(smallFont);
-		txtAnswer.setFont(largeFont);
+		txtQuestion.setFont(mediumFont_latin); // Pinyin
+		txtHint.setFont(smallFont_latin); // Translation
+		txtAnswer.setFont(largeFont_hanzi); // Simple Hanzi
 		break;
 	    case "Learn traditional Hanzi":
 		curLearningMode = LearningMode.TRADITIONAL_HANZI;
-		txtQuestion.setFont(largeFont);
-		txtHint.setFont(smallFont);
-		txtAnswer.setFont(largeFont);
+		txtQuestion.setFont(largeFont_hanzi); // Traditional Hanzi
+		txtHint.setFont(smallFont_latin); // Translation
+		txtAnswer.setFont(largeFont_hanzi); // Simple Hanzi
 		break;
 	    case "Learn Pinyin":
 		curLearningMode = LearningMode.PINYIN;
-		txtQuestion.setFont(largeFont);
-		txtHint.setFont(smallFont);
-		txtAnswer.setFont(mediumFont);
+		txtQuestion.setFont(largeFont_hanzi); // Simple Hanzi
+		txtHint.setFont(smallFont_latin); // Translation
+		txtAnswer.setFont(mediumFont_latin); // Pinyin
 		break;
 	    case "Learn Translations de -> zh":
 		curLearningMode = LearningMode.TRANSLATE_DE_ZH;
-		txtQuestion.setFont(smallFont);
-		txtHint.setFont(mediumFont);
-		txtAnswer.setFont(largeFont);
+		txtQuestion.setFont(smallFont_latin); // Translation
+		txtHint.setFont(mediumFont_latin); // Pinyin
+		txtAnswer.setFont(largeFont_hanzi); // Simple Hanzi
 		break;
 	    case "Learn Translations zh -> de":
 		curLearningMode = LearningMode.TRANSLATE_ZH_DE;
-		txtQuestion.setFont(largeFont);
-		txtHint.setFont(mediumFont);
-		txtAnswer.setFont(smallFont);
+		txtQuestion.setFont(largeFont_hanzi); // Simple Hanzi
+		txtHint.setFont(mediumFont_latin); // Pinyin
+		txtAnswer.setFont(smallFont_latin); // Translation
 		break;
 	    default:
 		curLearningMode = null;
@@ -880,19 +900,23 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdNextFontActionPerformed
 
     private void changeFontTest() {
-	displayFont = fonts.get(curFontIndex);
+	displayFont_latin = fonts.get(curFontIndex);
+	displayFont_hanzi = fonts.get(curFontIndex);
 
-	console.cprintln("############\n   Display font: " + displayFont + " (" + curFontIndex + ")\n############");
+	console.cprintln("############\n   Display font: " + displayFont_latin + " (" + curFontIndex + ")\n############");
 
-	smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 12);
-	mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
-	largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 48);
+	smallFont_latin = new java.awt.Font(displayFont_latin, java.awt.Font.PLAIN, 12);
+	mediumFont_latin = new java.awt.Font(displayFont_latin, java.awt.Font.PLAIN, 24);
+	largeFont_latin = new java.awt.Font(displayFont_latin, java.awt.Font.PLAIN, 48);
+	smallFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 12);
+	mediumFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 24);
+	largeFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 48);
 
-	txtQuestion.setFont(largeFont);
-	txtAnswer.setFont(mediumFont);
+	txtQuestion.setFont(largeFont_hanzi);
+	txtAnswer.setFont(mediumFont_latin);
 
-	System.out.println("Large font: " + largeFont.getFontName());
-	System.out.println("Medium font: " + mediumFont.getFontName());
+	System.out.println("Large font: " + largeFont_hanzi.getFontName());
+	System.out.println("Medium font: " + mediumFont_latin.getFontName());
 
 	repaintCustomTextFields();
     }
@@ -1028,10 +1052,15 @@ public class frmMain extends javax.swing.JFrame {
 
     List<String> fonts;
     int curFontIndex = 0;
-    String displayFont = "STKaiti";
-    Font smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
-    Font mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 36);
-    Font largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 54);
+    String displayFont_latin = "Dialog";
+    // String displayFont = "STFangsong";
+    String displayFont_hanzi = "FangSong";
+    Font smallFont_latin;
+    Font mediumFont_latin;
+    Font largeFont_latin;
+    Font smallFont_hanzi;
+    Font mediumFont_hanzi;
+    Font largeFont_hanzi;
     // Font smallFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 12);
     // Font mediumFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 24);
     // Font largeFont = new java.awt.Font(displayFont, java.awt.Font.PLAIN, 48);
