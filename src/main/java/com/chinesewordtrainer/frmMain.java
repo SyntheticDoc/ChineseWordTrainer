@@ -35,6 +35,18 @@ public class frmMain extends javax.swing.JFrame {
 	txtConsole.setDefaultLocale(java.util.Locale.SIMPLIFIED_CHINESE);
 	console = new ConsoleHandler(txtConsole);
 	csvReader = CSVReader.getInstance(console);
+	
+	if(true) {
+	    LessonTextProcessor ltp = new LessonTextProcessor(console, allWords);
+	    ltp.generateNamedTextDictionaries();
+	    System.exit(0);
+	}
+	
+	if(false) {
+	    csvReader.prepareNewVocabList();
+	    System.exit(0);
+	}
+	
 	allWords = csvReader.readWords();
 
 	if (allWords == null || allWords.isEmpty()) {
@@ -147,12 +159,18 @@ public class frmMain extends javax.swing.JFrame {
         chkL20 = new javax.swing.JCheckBox();
         chkL19 = new javax.swing.JCheckBox();
         chkL18 = new javax.swing.JCheckBox();
+        chkLDuolingo = new javax.swing.JCheckBox();
+        chkLHSK1 = new javax.swing.JCheckBox();
+        chkLHSK2 = new javax.swing.JCheckBox();
+        chkLHSK3 = new javax.swing.JCheckBox();
+        chkLHSK4 = new javax.swing.JCheckBox();
         cmdLearningModeApply = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         chkTradHanziOnlyIfDifference = new javax.swing.JCheckBox();
         numShuffleBeta = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         chkOnlyUnknownWords = new javax.swing.JCheckBox();
+        chkAlwaysShowHint = new javax.swing.JCheckBox();
         cmdRevealAnswer = new javax.swing.JButton();
         cmdResetWordStats = new javax.swing.JButton();
         cmdPreviousFont = new javax.swing.JButton();
@@ -282,6 +300,21 @@ public class frmMain extends javax.swing.JFrame {
         chkL18.setText("Lesson 18");
         chkL18.setToolTipText("");
 
+        chkLDuolingo.setText("Duolingo");
+        chkLDuolingo.setToolTipText("");
+
+        chkLHSK1.setText("HSK 1");
+        chkLHSK1.setToolTipText("");
+
+        chkLHSK2.setText("HSK 2");
+        chkLHSK2.setToolTipText("");
+
+        chkLHSK3.setText("HSK 3");
+        chkLHSK3.setToolTipText("");
+
+        chkLHSK4.setText("HSK 4");
+        chkLHSK4.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -292,7 +325,9 @@ public class frmMain extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(chkL7)
                         .addGap(18, 18, 18)
-                        .addComponent(chkL14))
+                        .addComponent(chkL14)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkLDuolingo))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(chkL5)
@@ -310,9 +345,18 @@ public class frmMain extends javax.swing.JFrame {
                                     .addComponent(chkL8))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkL15)
-                                    .addComponent(chkL17)
-                                    .addComponent(chkL16)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(chkL15)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chkLHSK1))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(chkL17)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chkLHSK3))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(chkL16)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chkLHSK2))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(chkL12)
@@ -320,14 +364,17 @@ public class frmMain extends javax.swing.JFrame {
                                     .addComponent(chkL13))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkL18)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(chkL18)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chkLHSK4))
                                     .addComponent(chkL20)
                                     .addComponent(chkL19)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cmdLessonsSelectAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmdLessonsSelectNone)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,7 +387,8 @@ public class frmMain extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkL1)
                     .addComponent(chkL8)
-                    .addComponent(chkL15))
+                    .addComponent(chkL15)
+                    .addComponent(chkLHSK1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -358,17 +406,21 @@ public class frmMain extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(chkL9)
-                            .addComponent(chkL16))
+                            .addComponent(chkL16)
+                            .addComponent(chkLHSK2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(chkL10)
-                            .addComponent(chkL17))
+                            .addComponent(chkL17)
+                            .addComponent(chkLHSK3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkL11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkL12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(chkL18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkL18)
+                            .addComponent(chkLHSK4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkL19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -376,7 +428,8 @@ public class frmMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkL7)
-                    .addComponent(chkL14))
+                    .addComponent(chkL14)
+                    .addComponent(chkLDuolingo))
                 .addContainerGap())
         );
 
@@ -421,6 +474,13 @@ public class frmMain extends javax.swing.JFrame {
 
         chkOnlyUnknownWords.setText("Include only words not yet learned in word list");
 
+        chkAlwaysShowHint.setText("Always show hint immediately");
+        chkAlwaysShowHint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAlwaysShowHintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -434,8 +494,9 @@ public class frmMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numShuffleBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(chkTradHanziOnlyIfDifference)
-                    .addComponent(chkOnlyUnknownWords))
-                .addContainerGap(98, Short.MAX_VALUE))
+                    .addComponent(chkOnlyUnknownWords)
+                    .addComponent(chkAlwaysShowHint))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,6 +508,8 @@ public class frmMain extends javax.swing.JFrame {
                 .addComponent(chkTradHanziOnlyIfDifference)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkOnlyUnknownWords, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkAlwaysShowHint, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -539,7 +602,7 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 186, Short.MAX_VALUE)))
+                                .addGap(0, 201, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -601,13 +664,13 @@ public class frmMain extends javax.swing.JFrame {
 
 	lessons = new boolean[]{false, chkL1.isSelected(), chkL2.isSelected(), chkL3.isSelected(), chkL4.isSelected(), chkL5.isSelected(), chkL6.isSelected(), chkL7.isSelected(), chkL8.isSelected(),
 	    chkL9.isSelected(), chkL10.isSelected(), chkL11.isSelected(), chkL12.isSelected(), chkL13.isSelected(), chkL14.isSelected(), chkL15.isSelected(), chkL16.isSelected(), chkL17.isSelected(),
-	    chkL18.isSelected(), chkL19.isSelected(), chkL20.isSelected()};
+	    chkL18.isSelected(), chkL19.isSelected(), chkL20.isSelected(), chkLDuolingo.isSelected(), chkLHSK1.isSelected(), chkLHSK2.isSelected(), chkLHSK3.isSelected(), chkLHSK4.isSelected()};
 
 	System.out.print("Active lessons: ");
 
 	for (int i = 1; i < lessons.length; i++) {
 	    if (lessons[i]) {
-		System.out.print(i + " ");
+		System.out.print(lessonStrings[i] + " ");
 	    }
 	}
 
@@ -619,7 +682,7 @@ public class frmMain extends javax.swing.JFrame {
 
 	for (Word w : allWords) {
 	    for (int i = 1; i < lessons.length; i++) {
-		if (lessons[i] && Integer.parseInt(w.getLesson()) == i) {
+		if (lessons[i] && lessonStrings[i].equals(w.getLesson())) {
 		    if (curLearningMode == LearningMode.TRADITIONAL_HANZI && chkTradHanziOnlyIfDifference.isSelected()) {
 			if (!(w.getSimpleHanzi().equals(w.getTraditionalHanzi()))) {
 			    if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
@@ -702,6 +765,10 @@ public class frmMain extends javax.swing.JFrame {
 		break;
 	}
 
+	if(chkAlwaysShowHint.isSelected()) {
+	    revealHint();
+	}
+	
 	curListIndex++;
 
 	repaintCustomTextFields();
@@ -712,6 +779,8 @@ public class frmMain extends javax.swing.JFrame {
 	    for (Word w : allWords) {
 		w.setNumWrong_simplified_hanzi(0);
 		w.setNumCorrect_simplified_hanzi(0);
+		w.setNumWrong_traditional_hanzi(0);
+		w.setNumCorrect_traditional_hanzi(0);
 	    }
 	}
 
@@ -865,8 +934,7 @@ public class frmMain extends javax.swing.JFrame {
 
     private void cmdResetWordStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdResetWordStatsActionPerformed
 	for (Word w : allWords) {
-	    w.setNumWrong_simplified_hanzi(0);
-	    w.setNumCorrect_simplified_hanzi(0);
+	    w.resetWordStats();
 	}
 
 	console.logMsg("Saving current word data...");
@@ -898,6 +966,10 @@ public class frmMain extends javax.swing.JFrame {
 	}
 	changeFontTest();
     }//GEN-LAST:event_cmdNextFontActionPerformed
+
+    private void chkAlwaysShowHintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAlwaysShowHintActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkAlwaysShowHintActionPerformed
 
     private void changeFontTest() {
 	displayFont_latin = fonts.get(curFontIndex);
@@ -990,6 +1062,7 @@ public class frmMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboLearningMode;
+    private javax.swing.JCheckBox chkAlwaysShowHint;
     private javax.swing.JCheckBox chkL1;
     private javax.swing.JCheckBox chkL10;
     private javax.swing.JCheckBox chkL11;
@@ -1010,6 +1083,11 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkL7;
     private javax.swing.JCheckBox chkL8;
     private javax.swing.JCheckBox chkL9;
+    private javax.swing.JCheckBox chkLDuolingo;
+    private javax.swing.JCheckBox chkLHSK1;
+    private javax.swing.JCheckBox chkLHSK2;
+    private javax.swing.JCheckBox chkLHSK3;
+    private javax.swing.JCheckBox chkLHSK4;
     private javax.swing.JCheckBox chkOnlyUnknownWords;
     private javax.swing.JCheckBox chkTradHanziOnlyIfDifference;
     private javax.swing.JButton cmdCorrect;
@@ -1044,6 +1122,7 @@ public class frmMain extends javax.swing.JFrame {
     int curListIndex;
     LearningMode curLearningMode;
     boolean[] lessons;
+    String[] lessonStrings = { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "Duolingo", "HSK1", "HSK2", "HSK3", "HSK4"};
     Word curWord;
     WeightedShuffle weightedShuffle;
 

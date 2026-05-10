@@ -285,6 +285,24 @@ public class Word {
 	}
     }
     
+    public void resetWordStats() {
+	numWrong_simplified_hanzi = 0;
+	numCorrect_simplified_hanzi = 0;
+	numWrong_traditional_hanzi = 0;
+	numCorrect_traditional_hanzi = 0;
+	numWrong_pinyin = 0;
+	numCorrect_pinyin = 0;
+	numWrong_translate_de_zh = 0;
+	numCorrect_translate_de_zh = 0;
+	numWrong_translate_zh_de = 0;
+	numCorrect_translate_zh_de = 0;
+	recalcDifficulty(SIMPLIFIED_HANZI);
+	recalcDifficulty(TRADITIONAL_HANZI);
+	recalcDifficulty(PINYIN);
+	recalcDifficulty(TRANSLATE_DE_ZH);
+	recalcDifficulty(TRANSLATE_ZH_DE);
+    }
+    
     public String getCSVString() {
 	return simpleHanzi + ";" + traditionalHanzi + ";" + pinyin + ";\"" + translation + "\";" + lesson + ";" + standardPronounciation + ";" + Zhuyin + ";"  + "[" + numWrong_simplified_hanzi + "-" + numCorrect_simplified_hanzi 
 		+ "|" + numWrong_traditional_hanzi + "-" + numCorrect_traditional_hanzi 

@@ -53,6 +53,29 @@ public class CSVReader {
 	return instance;
     }
     
+    public void prepareNewVocabList() {
+	dataFilePath = Path.of("C:\\Users\\Deus\\Documents\\NetBeansProjects\\ChineseWordTrainer\\AllWords_new.txt");
+	
+	ArrayList<Word> newVocab = new ArrayList<>();
+	
+	for(int i = 1; i <= 22; i++) {
+	    ArrayList<Word> content = readCSVFile_old3(i);
+	    
+	    if(content == null) {
+		console.logErr("ERROR in CSVReader.prepareNewVocabList, content for file " + i + " was null, exiting program");
+		System.exit(-5);
+	    }
+	    
+	    for(Word w : readCSVFile_old3(i)) {
+		newVocab.add(w);
+	    }
+	}
+	
+	dataFilePath = Path.of("C:\\Users\\Deus\\Documents\\NetBeansProjects\\ChineseWordTrainer\\AllWords_new2.txt");
+	
+	writeToFile(newVocab);
+    }
+    
     public ArrayList<Word> readWords() {
 	ArrayList<Word> result = new ArrayList<>();
 	console.logMsg("Starting to read CSV-Files...");
@@ -71,16 +94,6 @@ public class CSVReader {
 	    return null;
 	}
 	
-	int counter = 0;
-	
-	for(Word w : result) {
-	    if(!w.getLesson().equals("11") && !w.getLesson().equals("12")) {
-		counter++;
-	    }
-	}
-	
-	System.out.println("Words learned up to L10: " + counter);
-	
 	console.logMsg("Successfully read " + result.size() + " words");
 	
 	return result;
@@ -92,6 +105,25 @@ public class CSVReader {
 		wr.write(w.getCSVString());
 		wr.write("\n");
 	    }
+	    
+	    System.out.println("File successfully WRITTEN to " + dataFilePath.toFile().getAbsolutePath() + "!");
+	} catch (FileNotFoundException e) {
+	    console.logErr("ERROR in CSVReader.writeToFile(): Could not write word, Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+	} catch (UnsupportedEncodingException e) {
+	    console.logErr("ERROR in CSVReader.writeToFile(): Could not write word, Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+	} catch (Exception e) {
+	    console.logErr("ERROR in CSVReader.writeToFile(): Could not write word, Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+	}
+    }
+    
+        public void writeStringToFile(ArrayList<String> words) {
+	try(Writer wr = new OutputStreamWriter(new FileOutputStream(dataFilePath.toFile()), "UTF-8")) {
+	    for(String s : words) {
+		wr.write(s);
+		wr.write("\n");
+	    }
+	    
+	    System.out.println("File successfully WRITTEN to " + dataFilePath.toFile().getAbsolutePath() + "!");
 	} catch (FileNotFoundException e) {
 	    console.logErr("ERROR in CSVReader.writeToFile(): Could not write word, Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace()));
 	} catch (UnsupportedEncodingException e) {
@@ -104,7 +136,7 @@ public class CSVReader {
     private ArrayList<Word> readCSVFile() {
 	ArrayList<Word> result = new ArrayList<>();
 	
-	System.out.println("Reading CSV-File...");
+	System.out.println("Reading CSV-File from " + dataFilePath.toFile() + "...");
 	
 	try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dataFilePath.toFile()), "UTF-8"))) {
 	    String line;
@@ -197,6 +229,151 @@ public class CSVReader {
 	}
 	
 	return result;
+    }
+    
+    private ArrayList<Word> readCSVFile_old3(int fileNum) {
+	ArrayList<Word> result = new ArrayList<>();
+	String filename;
+	
+	if(fileNum < 10) {
+	    filename = "Vokabeln,␣0" + fileNum + ".␣Lektion.csv";
+	} else {
+	    filename = "Vokabeln,␣" + fileNum + ".␣Lektion.csv";
+	}
+	
+	System.out.println("Reading CSV-File " + filename + "...");
+	
+	try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {
+	    String line;
+	    
+	    while((line = reader.readLine()) != null) {
+		String[] s1 = line.split("\"");
+		
+		if(s1.length == 3) {
+		    String[] s1_1 = s1[0].split(";");
+		    String[] s1_2 = s1[2].split(";");
+		    
+		    if(s1_1.length != 4) {
+			console.logErr("ERROR in CSVReader.readCSVFile(" + fileNum + "): Cannot build word for line \"" + line + "\". Reason: s1_1.length=" + s1_1.length + " (should be 4)."
+				+ "\n   s1: " + stringifyStrArr(s1)
+				+ "\n   s1_1: " + stringifyStrArr(s1_1)
+				+ "\n   s1_2: " + stringifyStrArr(s1_2)
+				+ "\n   Aborting reading file...");
+			return null;
+		    }
+		    
+		    if(s1_2.length >= 4) {
+			try {
+			    Word w = check(s1_1[1], s1_1[2], s1_1[3], s1[1], s1_2[3], s1_2[4], "null", "[0-0|0-0|0-0|0-0|0-0]");
+			    result.add(w);
+			    // console.cprintln("Created word: " + w.toString());
+			} catch (Exception e) {
+			    console.logErr("ERROR in CSVReader.readCSVFile(" + fileNum + "): Cannot build word for line \"" + line + "\". Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace())
+				+ "\n   s1: " + stringifyStrArr(s1)
+				+ "\n   s1_1: " + stringifyStrArr(s1_1)
+				+ "\n   s1_2: " + stringifyStrArr(s1_2)
+				+ "\n   Aborting reading file...");
+			    return null;
+			}
+		    } else {
+			console.logErr("ERROR in CSVReader.readCSVFile(" + fileNum + "): Cannot build word for line \"" + line + "\". Reason: s1_2.length=" + s1_2.length + " (should be larger than 3). Aborting reading file..."
+				+ "\n   s1: " + stringifyStrArr(s1)
+				+ "\n   s1_1: " + stringifyStrArr(s1_1)
+				+ "\n   s1_2: " + stringifyStrArr(s1_2)
+				+ "\n   Aborting reading file...");
+			return null;
+		    }
+		} else if(s1.length == 1) {
+		    String[] s1_1 = s1[0].split(";");
+		    
+		    if(s1_1[0].equals("57-hanzi-german/14")) {
+			s1_1[3] = "yuán";
+		    }
+		    
+		    try {
+			Word w = check(s1_1[1], s1_1[2], s1_1[3], s1_1[4], s1_1[7], s1_1[8], "null", "[0-0|0-0|0-0|0-0|0-0]");
+			result.add(w);
+			// console.cprintln("Created word: " + w.toString());
+		    } catch (Exception e) {
+			console.logErr("ERROR in CSVReader.readCSVFile(" + fileNum + "): Cannot build word for line \"" + line + "\". Reason: " + e.getMessage() + getStackTraceString(e.getStackTrace())
+				+ "\n   s1: " + stringifyStrArr(s1)
+				+ "\n   s1_1: " + stringifyStrArr(s1_1)
+				+ "\n   Aborting reading file...");
+			return null;
+		    }
+		} else {
+		    console.logErr("ERROR in CSVReader.readCSVFile(" + fileNum + "): Cannot build word for line \"" + line + "\". Reason: s1.length=" + s1.length + " (Should be 1 or 3)"
+				+ "\n   s1: " + stringifyStrArr(s1)
+				+ "\n   Aborting reading file...");
+		    return null;
+		}
+	    }
+	} catch (IOException e) {
+	    console.logErr("ERROR in CSVReader.readCSVFile(" + fileNum + "): " + e.getMessage() + getStackTraceString(e.getStackTrace()));
+	    return null;
+	}
+	
+	return result;
+    }
+    
+    private Word check(String simpleHanzi, String traditionalHanzi, String pinyin, String translation, String lesson, String standardPronounciation, String zhuyin, String learningStats) throws Exception {
+	if(simpleHanzi.isBlank()) {
+	    throw new Exception("ERROR in CSVReader.check(): simpleHanzi was blank");
+	}
+	
+	if(traditionalHanzi.isBlank()) {
+	    throw new Exception("ERROR in CSVReader.check(): traditionalHanzi was blank");
+	}
+	
+	if(pinyin.isBlank()) {
+	    throw new Exception("ERROR in CSVReader.check(): pinyin was blank");
+	}
+	
+	if(translation.isBlank()) {
+	    throw new Exception("ERROR in CSVReader.check(): translation was blank");
+	}
+	
+	if(lesson.isBlank()) {
+	    throw new Exception("ERROR in CSVReader.check(): lesson was blank");
+	}
+	
+	try {
+	    Integer.parseInt(lesson);
+	} catch(NumberFormatException e) {
+	    throw new Exception("ERROR in CSVReader.check(): could not convert lesson to number: " + e.getMessage());
+	}
+	
+	if(standardPronounciation.isBlank()) {
+	    throw new Exception("ERROR in CSVReader.check(): simpleHanzi was blank");
+	}
+	
+	if(!zhuyin.equals("null")) {
+	    throw new Exception("ERROR in CSVReader.check(): zhuyin did not equal null (zhuyin=" + zhuyin + ")");
+	}
+	
+	if(!learningStats.equals("[0-0|0-0|0-0|0-0|0-0]")) {
+	    throw new Exception("ERROR in CSVReader.check(): learningStats was not as expected (learningStats=" + learningStats + ")");
+	}
+	
+	return new Word(simpleHanzi, traditionalHanzi, pinyin, translation, lesson, standardPronounciation, zhuyin, learningStats);
+    }
+    
+    private String stringifyStrArr(String[] strArr) {
+	StringBuilder result = new StringBuilder();
+	
+	result.append("[");
+	
+	for(int i = 0; i < strArr.length; i++) {
+	    result.append(i).append(":").append(strArr[i]);
+	    
+	    if(i < (strArr.length - 1)) {
+		result.append("|");
+	    }
+	}
+	
+	result.append("]");
+	
+	return result.toString();
     }
     
 //    private ArrayList<Word> readCSVFile_old(int fileNum) {

@@ -1,0 +1,41 @@
+Word(String simpleHanzi, String traditionalHanzi, String pinyin, String translation, String lesson, String standardPronounciation, String zhuyin, String learningStats)
+
+1 String simpleHanzi
+2 String traditionalHanzi
+3 String pinyin
+4 String translation
+5 String lesson
+6 String standardPronounciation
+7 String zhuyin
+8 String learningStats
+
+l-1-vocab-15-2;太;太;tài;"zu; allzu; höchst";;;01;太;true;true;true;ㄊㄞˋ;;
+l-1-vocab-15-2;太;     太;     tài;    "zu; allzu; höchst"; ;      ;       01;     太;      true;   true;    true;   ㄊㄞˋ;   ;
+s1_1[0]        s1_1[1] s1_1[2] s1_1[3] s1[1]              s1_2[0] s1_2[1] s1_2[2]  s1_2[3] s1_2[4]  s1_2[5] s1_2[6] s1_2[7] s1_2[8]
+
+太;太;tài;"zu; allzu; höchst";01;太;null;[0-1|0-0|0-0|0-1|0-0]
+
+   s1: [0:57-hanzi-german/14;?;?;;Yuan (Schreibweise von ? auf Banknoten) (Anm.: Als Adjektiv bedeutet ? „rund“.);;;14;?;true;true;true;;true;true]
+   s1_1: [0:57-hanzi-german/14|1:?|2:?|3:|4:Yuan (Schreibweise von ? auf Banknoten) (Anm.: Als Adjektiv bedeutet ? „rund“.)|5:|6:|7:14|8:?|9:true|10:true|11:true|12:|13:true|14:true]
+
+
+Word(String guid, String simpleHanzi, String traditionalHanzi, String pinyin, String translation, String examples, String notes, String lesson, String standardPronounciation, 
+	    boolean createFindRadical, boolean createFindTraditionalRadical, boolean createWriteSimpleHanzi, String Zhuyin, boolean createReadTraditionalHanzi, 
+	    boolean createWriteTraditionalHanzi, String learningStats)
+
+1 String guid
+2 String simpleHanzi
+3 String traditionalHanzi
+4 String pinyin
+5 String translation
+6 String examples
+7 String notes
+8 String lesson
+9 String standardPronounciation
+10 boolean createFindRadical
+11 boolean createFindTraditionalRadical
+12 boolean createWriteSimpleHanzi
+13 String Zhuyin
+14 boolean createReadTraditionalHanzi
+15 boolean createWriteTraditionalHanzi
+16 String learningStats
