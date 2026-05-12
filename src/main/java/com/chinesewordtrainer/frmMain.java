@@ -11,6 +11,7 @@ import static com.chinesewordtrainer.LearningMode.TRADITIONAL_HANZI;
 import static com.chinesewordtrainer.LearningMode.TRANSLATE_DE_ZH;
 import static com.chinesewordtrainer.LearningMode.TRANSLATE_ZH_DE;
 import java.awt.Font;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,23 +31,38 @@ public class frmMain extends javax.swing.JFrame {
     public frmMain() {
 	initComponents();
 
+	cmdTest.setVisible(false);
+	
 	txtConsole.setEditable(false);
 	txtConsole.setFont(new Font("Arial Unicode MS", txtConsole.getFont().getStyle(), 11));
 	txtConsole.setDefaultLocale(java.util.Locale.SIMPLIFIED_CHINESE);
 	console = new ConsoleHandler(txtConsole);
 	csvReader = CSVReader.getInstance(console);
-	
-	if(true) {
+	soundFileHandler = SoundFileHandler.getInstance(console);
+	tokenizer = new PinyinAudioTokenizer(soundFileHandler.getAudioFiles());
+	soundPlayer = new SoundPlayer(console);
+
+	try {
+	    ChineseTtsService ttsService = ChineseTtsService.fromEnvironment();
+	    wordAudioService = new WordAudioService(ttsService, console, Paths.get("H:\\Daten\\Coding\\ChineseWordTrainer\\cache"));
+	    console.logMsg("Word audio service initialized successfully.");
+	} catch (Exception ex) {
+	    wordAudioService = null;
+	    console.logErr("Could not initialize word audio service: " + ex.getMessage());
+	    System.exit(-1);
+	}
+
+	if (false) {
 	    LessonTextProcessor ltp = new LessonTextProcessor(console, allWords);
 	    ltp.generateNamedTextDictionaries();
 	    System.exit(0);
 	}
-	
-	if(false) {
+
+	if (false) {
 	    csvReader.prepareNewVocabList();
 	    System.exit(0);
 	}
-	
+
 	allWords = csvReader.readWords();
 
 	if (allWords == null || allWords.isEmpty()) {
@@ -100,19 +116,24 @@ public class frmMain extends javax.swing.JFrame {
 	    smallFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 24);
 	    mediumFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 36);
 	    largeFont_hanzi = new java.awt.Font(displayFont_hanzi, java.awt.Font.PLAIN, 54);
-	    
+
 	    txtQuestion.setFont(largeFont_hanzi);
 	    txtHint.setFont(smallFont_latin);
 	    txtAnswer.setFont(mediumFont_latin);
-	    
+
 	    txtQuestion.setText("欢迎使用中文单词训练器！");
 	    txtHint.setText("Willkommen bei ChineseWordTrainer!");
 	    txtAnswer.setText("Willkommen bei ChineseWordTrainer!");
-	    
+
 	    console.logMsg("displayFont_latin: " + displayFont_latin);
 	    console.logMsg("displayFont_hanzi: " + largeFont_hanzi.getFontName());
-	    
+
 	    repaintCustomTextFields();
+	}
+
+	if (true) {
+	    curWord = allWords.get(59);
+	    playWordAudio();
 	}
     }
 
@@ -171,10 +192,14 @@ public class frmMain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         chkOnlyUnknownWords = new javax.swing.JCheckBox();
         chkAlwaysShowHint = new javax.swing.JCheckBox();
+        chkPlayAudioImmediately = new javax.swing.JCheckBox();
+        chkPlayAudioOnlyForTingXie = new javax.swing.JCheckBox();
         cmdRevealAnswer = new javax.swing.JButton();
         cmdResetWordStats = new javax.swing.JButton();
         cmdPreviousFont = new javax.swing.JButton();
         cmdNextFont = new javax.swing.JButton();
+        cmdTest = new javax.swing.JButton();
+        cmdPlayAudio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -481,6 +506,10 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
 
+        chkPlayAudioImmediately.setText("Play Audio for word immediately");
+
+        chkPlayAudioOnlyForTingXie.setText("Play Audio only for tingxie training mode");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -495,7 +524,9 @@ public class frmMain extends javax.swing.JFrame {
                         .addComponent(numShuffleBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(chkTradHanziOnlyIfDifference)
                     .addComponent(chkOnlyUnknownWords)
-                    .addComponent(chkAlwaysShowHint))
+                    .addComponent(chkAlwaysShowHint)
+                    .addComponent(chkPlayAudioImmediately)
+                    .addComponent(chkPlayAudioOnlyForTingXie))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -510,6 +541,10 @@ public class frmMain extends javax.swing.JFrame {
                 .addComponent(chkOnlyUnknownWords, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkAlwaysShowHint, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkPlayAudioImmediately)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkPlayAudioOnlyForTingXie)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -541,6 +576,21 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
 
+        cmdTest.setText("Test");
+        cmdTest.setEnabled(false);
+        cmdTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdTestActionPerformed(evt);
+            }
+        });
+
+        cmdPlayAudio.setText("Play Audio");
+        cmdPlayAudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdPlayAudioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -548,28 +598,34 @@ public class frmMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(43, 43, 43)
-                            .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(cmdPlayAudio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmdResetWordStats, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmdTest, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -595,6 +651,8 @@ public class frmMain extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmdPlayAudio, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -602,11 +660,12 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 201, Short.MAX_VALUE)))
+                                .addGap(0, 142, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdResetWordStats, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmdEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(cmdResetWordStats, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmdTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -731,7 +790,7 @@ public class frmMain extends javax.swing.JFrame {
 	}
 
 	curWord = curList.get(curListIndex);
-	
+
 	console.cprintln("  Word " + curListIndex + " / " + curList.size() + String.format(" (Difficulty: %.2f)", curWord.getDifficulty(curLearningMode)));
 
 	cmdWrong.setEnabled(false);
@@ -742,33 +801,48 @@ public class frmMain extends javax.swing.JFrame {
 		txtQuestion.setText(curWord.getPinyin());
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
+		if (chkPlayAudioImmediately.isSelected() && !chkPlayAudioOnlyForTingXie.isSelected()) {
+		    playWordAudio();
+		}
 		break;
 	    case TRADITIONAL_HANZI:
 		txtQuestion.setText(curWord.getTraditionalHanzi());
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
+		if (chkPlayAudioImmediately.isSelected() && !chkPlayAudioOnlyForTingXie.isSelected()) {
+		    playWordAudio();
+		}
 		break;
 	    case PINYIN:
 		txtQuestion.setText(curWord.getSimpleHanzi());
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
+		if (chkPlayAudioImmediately.isSelected() && !chkPlayAudioOnlyForTingXie.isSelected()) {
+		    playWordAudio();
+		}
 		break;
 	    case TRANSLATE_DE_ZH:
 		txtQuestion.setText(curWord.getTranslation());
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
+		if (chkPlayAudioImmediately.isSelected() && !chkPlayAudioOnlyForTingXie.isSelected()) {
+		    playWordAudio();
+		}
 		break;
 	    case TRANSLATE_ZH_DE:
 		txtQuestion.setText(curWord.getSimpleHanzi());
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
+		if (chkPlayAudioImmediately.isSelected() && !chkPlayAudioOnlyForTingXie.isSelected()) {
+		    playWordAudio();
+		}
 		break;
 	}
 
-	if(chkAlwaysShowHint.isSelected()) {
+	if (chkAlwaysShowHint.isSelected()) {
 	    revealHint();
 	}
-	
+
 	curListIndex++;
 
 	repaintCustomTextFields();
@@ -968,8 +1042,18 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdNextFontActionPerformed
 
     private void chkAlwaysShowHintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAlwaysShowHintActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_chkAlwaysShowHintActionPerformed
+
+    private void cmdTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTestActionPerformed
+        curWord = allWords.get(59);
+	System.out.println("Trying to play audio for " + curWord.getPinyin());
+	playWordAudio();
+    }//GEN-LAST:event_cmdTestActionPerformed
+
+    private void cmdPlayAudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPlayAudioActionPerformed
+        playWordAudio();
+    }//GEN-LAST:event_cmdPlayAudioActionPerformed
 
     private void changeFontTest() {
 	displayFont_latin = fonts.get(curFontIndex);
@@ -1023,6 +1107,22 @@ public class frmMain extends javax.swing.JFrame {
 	txtHint.repaint();
 	txtAnswer.revalidate();
 	txtAnswer.repaint();
+    }
+    
+    private void playWordAudio() {
+	if (curWord != null) {
+	    wordAudioService.playWordAsync(curWord);
+	}
+    }
+
+    private void playWordAudio_mp3(Word word) {
+	List<String> stems = tokenizer.toAudioStems(word.getPinyin());
+
+	new Thread(() -> {
+	    for (String stem : stems) {
+		soundPlayer.play("/audio/" + stem + ".mp3");
+	    }
+	}).start();
     }
 
     /**
@@ -1089,6 +1189,8 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkLHSK3;
     private javax.swing.JCheckBox chkLHSK4;
     private javax.swing.JCheckBox chkOnlyUnknownWords;
+    private javax.swing.JCheckBox chkPlayAudioImmediately;
+    private javax.swing.JCheckBox chkPlayAudioOnlyForTingXie;
     private javax.swing.JCheckBox chkTradHanziOnlyIfDifference;
     private javax.swing.JButton cmdCorrect;
     private javax.swing.JButton cmdEnd;
@@ -1096,9 +1198,11 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JButton cmdLessonsSelectAll;
     private javax.swing.JButton cmdLessonsSelectNone;
     private javax.swing.JButton cmdNextFont;
+    private javax.swing.JButton cmdPlayAudio;
     private javax.swing.JButton cmdPreviousFont;
     private javax.swing.JButton cmdResetWordStats;
     private javax.swing.JButton cmdRevealAnswer;
+    private javax.swing.JButton cmdTest;
     private javax.swing.JButton cmdWrong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -1117,12 +1221,16 @@ public class frmMain extends javax.swing.JFrame {
 
     ConsoleHandler console;
     CSVReader csvReader;
+    SoundFileHandler soundFileHandler;
+    PinyinAudioTokenizer tokenizer;
+    SoundPlayer soundPlayer;
+    WordAudioService wordAudioService;
     ArrayList<Word> allWords;
     ArrayList<Word> curList;
     int curListIndex;
     LearningMode curLearningMode;
     boolean[] lessons;
-    String[] lessonStrings = { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "Duolingo", "HSK1", "HSK2", "HSK3", "HSK4"};
+    String[] lessonStrings = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "Duolingo", "HSK1", "HSK2", "HSK3", "HSK4"};
     Word curWord;
     WeightedShuffle weightedShuffle;
 

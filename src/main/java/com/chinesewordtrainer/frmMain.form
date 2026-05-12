@@ -26,26 +26,32 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="370" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane2" min="-2" pref="375" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="375" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="cmdWrong" min="-2" pref="176" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="cmdCorrect" min="-2" pref="176" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Component id="cmdRevealAnswer" min="-2" pref="289" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane2" min="-2" pref="375" max="-2" attributes="0"/>
+                          <Component id="jScrollPane3" min="-2" pref="375" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" min="-2" pref="375" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cmdWrong" min="-2" pref="176" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cmdCorrect" min="-2" pref="176" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="cmdRevealAnswer" min="-2" pref="289" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="cmdPreviousFont" min="-2" pref="176" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cmdNextFont" min="-2" pref="176" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="cmdPreviousFont" min="-2" pref="176" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmdNextFont" min="-2" pref="176" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="cmdPlayAudio" min="-2" pref="190" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -53,6 +59,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cmdResetWordStats" min="-2" pref="165" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="cmdTest" min="-2" pref="112" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmdEnd" min="-2" pref="176" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jPanel1" max="32767" attributes="0"/>
@@ -84,6 +92,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel3" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
+                              <Component id="cmdPlayAudio" min="-2" pref="69" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="cmdCorrect" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="cmdWrong" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
@@ -93,13 +103,14 @@
                                   <Component id="cmdPreviousFont" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="cmdNextFont" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="201" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="142" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmdEnd" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="cmdEnd" pref="70" max="32767" attributes="0"/>
                           <Component id="cmdResetWordStats" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="cmdTest" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -627,6 +638,8 @@
                       <Component id="chkTradHanziOnlyIfDifference" min="-2" max="-2" attributes="0"/>
                       <Component id="chkOnlyUnknownWords" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="chkAlwaysShowHint" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkPlayAudioImmediately" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkPlayAudioOnlyForTingXie" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -645,6 +658,10 @@
                   <Component id="chkOnlyUnknownWords" min="-2" pref="22" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="chkAlwaysShowHint" min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="chkPlayAudioImmediately" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="chkPlayAudioOnlyForTingXie" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -681,6 +698,16 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAlwaysShowHintActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JCheckBox" name="chkPlayAudioImmediately">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Play Audio for word immediately"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="chkPlayAudioOnlyForTingXie">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Play Audio only for tingxie training mode"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="cmdRevealAnswer">
@@ -713,6 +740,23 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdNextFontActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdTest">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Test"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdTestActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cmdPlayAudio">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Play Audio"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdPlayAudioActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
