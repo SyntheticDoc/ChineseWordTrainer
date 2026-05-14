@@ -10,6 +10,7 @@ import static com.chinesewordtrainer.LearningMode.SIMPLIFIED_HANZI;
 import static com.chinesewordtrainer.LearningMode.TRADITIONAL_HANZI;
 import static com.chinesewordtrainer.LearningMode.TRANSLATE_DE_ZH;
 import static com.chinesewordtrainer.LearningMode.TRANSLATE_ZH_DE;
+import static com.chinesewordtrainer.LearningMode.TINGXIE;
 import java.awt.Font;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class frmMain extends javax.swing.JFrame {
 
 	try {
 	    ChineseTtsService ttsService = ChineseTtsService.fromEnvironment();
-	    wordAudioService = new WordAudioService(ttsService, console, Paths.get("H:\\Daten\\Coding\\ChineseWordTrainer\\cache"));
+	    wordAudioService = new WordAudioService(ttsService, console, Paths.get("C:\\Users\\Deus\\OneDrive\\Sinologie\\Zhongwen\\AzureTTS\\Cache"));
 	    console.logMsg("Word audio service initialized successfully.");
 	} catch (Exception ex) {
 	    wordAudioService = null;
@@ -254,7 +255,7 @@ public class frmMain extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Learning Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12))); // NOI18N
 
-        cboLearningMode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Learn simplified Hanzi", "Learn traditional Hanzi", "Learn Pinyin", "Learn Translations de -> zh", "Learn Translations zh -> de" }));
+        cboLearningMode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Learn simplified Hanzi", "Learn traditional Hanzi", "Learn Pinyin", "Learn Translations de -> zh", "Learn Translations zh -> de", "Tingxie" }));
         cboLearningMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLearningModeActionPerformed(evt);
@@ -606,19 +607,22 @@ public class frmMain extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(cmdPlayAudio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(cmdWrong, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmdCorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(cmdRevealAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(cmdPlayAudio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -660,7 +664,7 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 142, Short.MAX_VALUE)))
+                                .addGap(0, 157, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmdEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
@@ -715,6 +719,12 @@ public class frmMain extends javax.swing.JFrame {
 		txtQuestion.setFont(largeFont_hanzi); // Simple Hanzi
 		txtHint.setFont(mediumFont_latin); // Pinyin
 		txtAnswer.setFont(smallFont_latin); // Translation
+		break;
+	    case "Tingxie":
+		curLearningMode = LearningMode.TINGXIE;
+		txtQuestion.setFont(mediumFont_latin); // "Listen to audio"
+		txtHint.setFont(smallFont_latin);      // Pinyin/translation hint
+		txtAnswer.setFont(largeFont_hanzi);    // Hanzi answer
 		break;
 	    default:
 		curLearningMode = null;
@@ -837,6 +847,12 @@ public class frmMain extends javax.swing.JFrame {
 		    playWordAudio();
 		}
 		break;
+	    case TINGXIE:
+		txtQuestion.setText("Listen to audio");
+		txtHint.setText("Click to reveal hint");
+		txtAnswer.setText("");
+		playWordAudio();
+    break;
 	}
 
 	if (chkAlwaysShowHint.isSelected()) {
@@ -899,6 +915,9 @@ public class frmMain extends javax.swing.JFrame {
 		case TRANSLATE_ZH_DE:
 		    txtAnswer.setText(curWord.getTranslation());
 		    break;
+		case TINGXIE:
+		    txtAnswer.setText(curWord.getSimpleHanzi());
+		    break;
 	    }
 	} else {
 	    JOptionPane.showMessageDialog(this, "Please start a learning session with the menu on the right side first!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -932,6 +951,9 @@ public class frmMain extends javax.swing.JFrame {
 		case TRANSLATE_ZH_DE:
 		    txtHint.setText(curWord.getPinyin());
 		    break;
+		case TINGXIE:
+		    txtHint.setText(curWord.getTranslation());
+		    break;
 	    }
 	} else {
 	    JOptionPane.showMessageDialog(this, "Please start a learning session with the menu on the right side first!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -961,6 +983,12 @@ public class frmMain extends javax.swing.JFrame {
 	    case TRANSLATE_ZH_DE:
 		curWord.setNumWrong_translate_zh_de(curWord.getNumWrong_translate_zh_de() + 1);
 		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Wrong answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
+		break;
+	    case TINGXIE:
+		curWord.setNumWrong_tingxie(curWord.getNumWrong_tingxie() + 1);
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin()
+		    + ": Wrong answer. Stats (wrong/correct): "
+		+ curWord.getNumWrong_tingxie() + " / " + curWord.getNumCorrect_tingxie());
 		break;
 	}
 
@@ -994,6 +1022,12 @@ public class frmMain extends javax.swing.JFrame {
 	    case TRANSLATE_ZH_DE:
 		curWord.setNumCorrect_translate_zh_de(curWord.getNumCorrect_translate_zh_de() + 1);
 		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin() + ": Correct answer. Stats (wrong/correct): " + curWord.getNumWrong_translate_zh_de() + " / " + curWord.getNumCorrect_translate_zh_de());
+		break;
+	    case TINGXIE:
+		curWord.setNumCorrect_tingxie(curWord.getNumCorrect_tingxie() + 1);
+		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin()
+			+ ": Correct answer. Stats (wrong/correct): "
+			+ curWord.getNumWrong_tingxie() + " / " + curWord.getNumCorrect_tingxie());
 		break;
 	}
 

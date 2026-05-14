@@ -14,5 +14,6 @@ public enum LearningMode {
     TRADITIONAL_HANZI,
     PINYIN,
     TRANSLATE_DE_ZH,
-    TRANSLATE_ZH_DE
+    TRANSLATE_ZH_DE,
+    TINGXIE
 }
