@@ -14,11 +14,19 @@ import static com.chinesewordtrainer.LearningMode.TINGXIE;
 import java.awt.Font;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
-import java.util.concurrent.ThreadLocalRandom;
+import java.awt.Component;
+import java.util.Collection;
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 
 /**
  *
@@ -33,7 +41,7 @@ public class frmMain extends javax.swing.JFrame {
 	initComponents();
 
 	cmdTest.setVisible(false);
-	
+
 	txtConsole.setEditable(false);
 	txtConsole.setFont(new Font("Arial Unicode MS", txtConsole.getFont().getStyle(), 11));
 	txtConsole.setDefaultLocale(java.util.Locale.SIMPLIFIED_CHINESE);
@@ -74,7 +82,21 @@ public class frmMain extends javax.swing.JFrame {
 	    cmdResetWordStats.setEnabled(false);
 	    cmdRevealAnswer.setEnabled(false);
 	    cmdWrong.setEnabled(false);
+	}
 
+	if (allWords != null && !allWords.isEmpty()) {
+	    Set<String> availableLessons = new LinkedHashSet<>();
+
+	    for (Word w : allWords) {
+		if (w.getLesson() != null && !w.getLesson().isBlank()) {
+		    availableLessons.add(w.getLesson());
+		}
+	    }
+
+	    populateLessonList(availableLessons);
+
+	    console.logMsg("Loaded " + availableLessons.size()
+		    + " available lessons.");
 	}
 
 	cmdRevealAnswer.setEnabled(false);
@@ -159,33 +181,10 @@ public class frmMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         cboLearningMode = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        chkL1 = new javax.swing.JCheckBox();
-        chkL2 = new javax.swing.JCheckBox();
-        chkL3 = new javax.swing.JCheckBox();
-        chkL4 = new javax.swing.JCheckBox();
-        chkL5 = new javax.swing.JCheckBox();
-        chkL6 = new javax.swing.JCheckBox();
-        chkL7 = new javax.swing.JCheckBox();
-        chkL8 = new javax.swing.JCheckBox();
-        chkL9 = new javax.swing.JCheckBox();
-        chkL10 = new javax.swing.JCheckBox();
-        chkL11 = new javax.swing.JCheckBox();
-        chkL12 = new javax.swing.JCheckBox();
         cmdLessonsSelectAll = new javax.swing.JButton();
         cmdLessonsSelectNone = new javax.swing.JButton();
-        chkL13 = new javax.swing.JCheckBox();
-        chkL14 = new javax.swing.JCheckBox();
-        chkL15 = new javax.swing.JCheckBox();
-        chkL16 = new javax.swing.JCheckBox();
-        chkL17 = new javax.swing.JCheckBox();
-        chkL20 = new javax.swing.JCheckBox();
-        chkL19 = new javax.swing.JCheckBox();
-        chkL18 = new javax.swing.JCheckBox();
-        chkLDuolingo = new javax.swing.JCheckBox();
-        chkLHSK1 = new javax.swing.JCheckBox();
-        chkLHSK2 = new javax.swing.JCheckBox();
-        chkLHSK3 = new javax.swing.JCheckBox();
-        chkLHSK4 = new javax.swing.JCheckBox();
+        scrLessons = new javax.swing.JScrollPane();
+        pnlLessonList = new javax.swing.JPanel();
         cmdLearningModeApply = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         chkTradHanziOnlyIfDifference = new javax.swing.JCheckBox();
@@ -264,32 +263,6 @@ public class frmMain extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Include Lessons"));
 
-        chkL1.setText("Lesson 1");
-
-        chkL2.setText("Lesson 2");
-
-        chkL3.setText("Lesson 3");
-
-        chkL4.setText("Lesson 4");
-
-        chkL5.setText("Lesson 5");
-
-        chkL6.setText("Lesson 6");
-
-        chkL7.setText("Lesson 7");
-
-        chkL8.setText("Lesson 8");
-        chkL8.setToolTipText("");
-
-        chkL9.setText("Lesson 9");
-
-        chkL10.setText("Lesson 10");
-
-        chkL11.setText("Lesson 11");
-        chkL11.setToolTipText("");
-
-        chkL12.setText("Lesson 12");
-
         cmdLessonsSelectAll.setText("Select all");
         cmdLessonsSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,42 +277,20 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
 
-        chkL13.setText("Lesson 13");
+        scrLessons.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        chkL14.setText("Lesson 14");
+        javax.swing.GroupLayout pnlLessonListLayout = new javax.swing.GroupLayout(pnlLessonList);
+        pnlLessonList.setLayout(pnlLessonListLayout);
+        pnlLessonListLayout.setHorizontalGroup(
+            pnlLessonListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 439, Short.MAX_VALUE)
+        );
+        pnlLessonListLayout.setVerticalGroup(
+            pnlLessonListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 149, Short.MAX_VALUE)
+        );
 
-        chkL15.setText("Lesson 15");
-        chkL15.setToolTipText("");
-
-        chkL16.setText("Lesson 16");
-        chkL16.setToolTipText("");
-
-        chkL17.setText("Lesson 17");
-        chkL17.setToolTipText("");
-
-        chkL20.setText("Lesson 20");
-        chkL20.setToolTipText("");
-
-        chkL19.setText("Lesson 19");
-        chkL19.setToolTipText("");
-
-        chkL18.setText("Lesson 18");
-        chkL18.setToolTipText("");
-
-        chkLDuolingo.setText("Duolingo");
-        chkLDuolingo.setToolTipText("");
-
-        chkLHSK1.setText("HSK 1");
-        chkLHSK1.setToolTipText("");
-
-        chkLHSK2.setText("HSK 2");
-        chkLHSK2.setToolTipText("");
-
-        chkLHSK3.setText("HSK 3");
-        chkLHSK3.setToolTipText("");
-
-        chkLHSK4.setText("HSK 4");
-        chkLHSK4.setToolTipText("");
+        scrLessons.setViewportView(pnlLessonList);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -348,59 +299,13 @@ public class frmMain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(chkL7)
-                        .addGap(18, 18, 18)
-                        .addComponent(chkL14)
-                        .addGap(18, 18, 18)
-                        .addComponent(chkLDuolingo))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkL5)
-                            .addComponent(chkL6)
-                            .addComponent(chkL4)
-                            .addComponent(chkL3)
-                            .addComponent(chkL2)
-                            .addComponent(chkL1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkL9)
-                                    .addComponent(chkL10)
-                                    .addComponent(chkL8))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkL15)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chkLHSK1))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkL17)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chkLHSK3))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkL16)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chkLHSK2))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkL12)
-                                    .addComponent(chkL11)
-                                    .addComponent(chkL13))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkL18)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chkLHSK4))
-                                    .addComponent(chkL20)
-                                    .addComponent(chkL19)))))
+                    .addComponent(scrLessons)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cmdLessonsSelectAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdLessonsSelectNone)))
-                .addContainerGap(123, Short.MAX_VALUE))
+                        .addComponent(cmdLessonsSelectNone)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,53 +314,8 @@ public class frmMain extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdLessonsSelectAll)
                     .addComponent(cmdLessonsSelectNone))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkL1)
-                    .addComponent(chkL8)
-                    .addComponent(chkL15)
-                    .addComponent(chkLHSK1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(chkL2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkL6)
-                            .addComponent(chkL13)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkL9)
-                            .addComponent(chkL16)
-                            .addComponent(chkLHSK2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkL10)
-                            .addComponent(chkL17)
-                            .addComponent(chkLHSK3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkL18)
-                            .addComponent(chkLHSK4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkL20)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkL7)
-                    .addComponent(chkL14)
-                    .addComponent(chkLDuolingo))
+                .addComponent(scrLessons, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -627,7 +487,7 @@ public class frmMain extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmdResetWordStats, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addComponent(cmdTest, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -664,7 +524,7 @@ public class frmMain extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmdPreviousFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmdNextFont, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 157, Short.MAX_VALUE)))
+                                .addGap(0, 172, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmdEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
@@ -731,54 +591,80 @@ public class frmMain extends javax.swing.JFrame {
 		console.logErr("ERROR in frmMain.cboLearningModeActionPerformed(): Unknown mode \"" + selectedMode + "\". Can't switch learning mode. Please restart the program.");
 	}
 
-	lessons = new boolean[]{false, chkL1.isSelected(), chkL2.isSelected(), chkL3.isSelected(), chkL4.isSelected(), chkL5.isSelected(), chkL6.isSelected(), chkL7.isSelected(), chkL8.isSelected(),
-	    chkL9.isSelected(), chkL10.isSelected(), chkL11.isSelected(), chkL12.isSelected(), chkL13.isSelected(), chkL14.isSelected(), chkL15.isSelected(), chkL16.isSelected(), chkL17.isSelected(),
-	    chkL18.isSelected(), chkL19.isSelected(), chkL20.isSelected(), chkLDuolingo.isSelected(), chkLHSK1.isSelected(), chkLHSK2.isSelected(), chkLHSK3.isSelected(), chkLHSK4.isSelected()};
+	if (curLearningMode == null) {
+	    return;
+	}
 
-	System.out.print("Active lessons: ");
+	// Collect selected lessons
+	Set<String> selectedLessons = new LinkedHashSet<>();
 
-	for (int i = 1; i < lessons.length; i++) {
-	    if (lessons[i]) {
-		System.out.print(lessonStrings[i] + " ");
+	for (Map.Entry<String, JCheckBox> entry
+		: lessonCheckboxes.entrySet()) {
+
+	    if (entry.getValue().isSelected()) {
+		selectedLessons.add(entry.getKey());
 	    }
 	}
 
-	System.out.println();
+	if (selectedLessons.isEmpty()) {
+	    JOptionPane.showMessageDialog(
+		    this,
+		    "Please select at least one lesson.",
+		    "No lessons selected",
+		    JOptionPane.WARNING_MESSAGE
+	    );
+	    return;
+	}
 
-	System.out.println("Building session list of words, please wait...");
+	console.logMsg("Active lessons: " + selectedLessons);
+	console.logMsg("Building session word list...");
 
-	curList = new ArrayList<>();
+	// Build new session list
+	ArrayList<Word> newList = new ArrayList<>();
+
+	boolean onlyUnknown = chkOnlyUnknownWords.isSelected();
+
+	boolean onlyDifferentTraditional
+		= curLearningMode == LearningMode.TRADITIONAL_HANZI
+		&& chkTradHanziOnlyIfDifference.isSelected();
 
 	for (Word w : allWords) {
-	    for (int i = 1; i < lessons.length; i++) {
-		if (lessons[i] && lessonStrings[i].equals(w.getLesson())) {
-		    if (curLearningMode == LearningMode.TRADITIONAL_HANZI && chkTradHanziOnlyIfDifference.isSelected()) {
-			if (!(w.getSimpleHanzi().equals(w.getTraditionalHanzi()))) {
-			    if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
-				curList.add(w);
-			    } else if (!chkOnlyUnknownWords.isSelected()) {
-				curList.add(w);
-			    }
-			}
-		    } else {
-			if (chkOnlyUnknownWords.isSelected() && w.getDifficulty(curLearningMode) <= 0) {
-			    curList.add(w);
-			} else if (!chkOnlyUnknownWords.isSelected()) {
-			    curList.add(w);
-			}
-		    }
-		}
+
+	    // Lesson filter
+	    if (!selectedLessons.contains(w.getLesson())) {
+		continue;
 	    }
+
+	    // Traditional Hanzi filter
+	    if (onlyDifferentTraditional
+		    && w.getSimpleHanzi().equals(w.getTraditionalHanzi())) {
+		continue;
+	    }
+
+	    // Unknown words filter
+	    if (onlyUnknown && w.getDifficulty(curLearningMode) > 0.0) {
+		continue;
+	    }
+
+	    newList.add(w);
 	}
+
+	if (newList.isEmpty()) {
+	    JOptionPane.showMessageDialog(
+		    this,
+		    "No words match the selected lessons and filters.",
+		    "Empty session",
+		    JOptionPane.WARNING_MESSAGE
+	    );
+	    return;
+	}
+
+	curList = newList;
+
 
 	// Collections.shuffle(curList);
 	double beta = ((Number) numShuffleBeta.getValue()).doubleValue();
 	weightedShuffle.interleavingShuffle(curList, beta, curLearningMode);
-
-	if (curList.size() == 0) {
-	    console.logErr("ERROR: Building session list resulted in a list with 0 entries! Aborting applyLearningMode(). Please restart program!");
-	    return;
-	}
 
 	System.out.println("Successfully build session list of " + curList.size() + " words!");
 
@@ -852,7 +738,7 @@ public class frmMain extends javax.swing.JFrame {
 		txtHint.setText("Click to reveal hint");
 		txtAnswer.setText("");
 		playWordAudio();
-    break;
+		break;
 	}
 
 	if (chkAlwaysShowHint.isSelected()) {
@@ -987,8 +873,8 @@ public class frmMain extends javax.swing.JFrame {
 	    case TINGXIE:
 		curWord.setNumWrong_tingxie(curWord.getNumWrong_tingxie() + 1);
 		console.cprintln("   " + curWord.getSimpleHanzi() + "/" + curWord.getPinyin()
-		    + ": Wrong answer. Stats (wrong/correct): "
-		+ curWord.getNumWrong_tingxie() + " / " + curWord.getNumCorrect_tingxie());
+			+ ": Wrong answer. Stats (wrong/correct): "
+			+ curWord.getNumWrong_tingxie() + " / " + curWord.getNumCorrect_tingxie());
 		break;
 	}
 
@@ -1080,13 +966,13 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_chkAlwaysShowHintActionPerformed
 
     private void cmdTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTestActionPerformed
-        curWord = allWords.get(59);
+	curWord = allWords.get(59);
 	System.out.println("Trying to play audio for " + curWord.getPinyin());
 	playWordAudio();
     }//GEN-LAST:event_cmdTestActionPerformed
 
     private void cmdPlayAudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPlayAudioActionPerformed
-        playWordAudio();
+	playWordAudio();
     }//GEN-LAST:event_cmdPlayAudioActionPerformed
 
     private void changeFontTest() {
@@ -1112,26 +998,9 @@ public class frmMain extends javax.swing.JFrame {
     }
 
     private void setAllLessonCheckmarks(boolean val) {
-	chkL1.setSelected(val);
-	chkL2.setSelected(val);
-	chkL3.setSelected(val);
-	chkL4.setSelected(val);
-	chkL5.setSelected(val);
-	chkL6.setSelected(val);
-	chkL7.setSelected(val);
-	chkL8.setSelected(val);
-	chkL9.setSelected(val);
-	chkL10.setSelected(val);
-	chkL11.setSelected(val);
-	chkL12.setSelected(val);
-	chkL13.setSelected(val);
-	chkL14.setSelected(val);
-	chkL15.setSelected(val);
-	chkL16.setSelected(val);
-	chkL17.setSelected(val);
-	chkL18.setSelected(val);
-	chkL19.setSelected(val);
-	chkL20.setSelected(val);
+	for (JCheckBox checkbox : lessonCheckboxes.values()) {
+	    checkbox.setSelected(val);
+	}
     }
 
     private void repaintCustomTextFields() {
@@ -1142,7 +1011,7 @@ public class frmMain extends javax.swing.JFrame {
 	txtAnswer.revalidate();
 	txtAnswer.repaint();
     }
-    
+
     private void playWordAudio() {
 	if (curWord != null) {
 	    wordAudioService.playWordAsync(curWord);
@@ -1157,6 +1026,112 @@ public class frmMain extends javax.swing.JFrame {
 		soundPlayer.play("/audio/" + stem + ".mp3");
 	    }
 	}).start();
+    }
+
+    private final Map<String, JCheckBox> lessonCheckboxes
+	    = new LinkedHashMap<>();
+
+    
+    private void populateLessonList(Collection<String> lessonIds) {
+	pnlLessonList.removeAll();
+	lessonCheckboxes.clear();
+
+	pnlLessonList.setLayout(
+		new BoxLayout(pnlLessonList, BoxLayout.Y_AXIS)
+	);
+
+	Map<String, List<String>> groups = new LinkedHashMap<>();
+
+	for (String id : lessonIds) {
+	    if (id == null || id.isBlank()) {
+		continue;
+	    }
+
+	    groups.computeIfAbsent(
+		    getLessonGroup(id),
+		    k -> new ArrayList<>()
+	    ).add(id);
+	}
+
+	for (Map.Entry<String, List<String>> group : groups.entrySet()) {
+
+	    List<String> ids = group.getValue();
+
+	    ids.sort((a, b) -> {
+		int cmp = Integer.compare(
+			getLessonNumber(a),
+			getLessonNumber(b)
+		);
+		return cmp != 0 ? cmp : a.compareTo(b);
+	    });
+
+	    // Group heading
+	    JLabel heading = new JLabel(group.getKey());
+	    heading.setFont(
+		    heading.getFont().deriveFont(Font.BOLD)
+	    );
+	    heading.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+	    pnlLessonList.add(Box.createVerticalStrut(8));
+	    pnlLessonList.add(heading);
+
+	    // Checkboxes
+	    for (String id : ids) {
+
+		String label = id.matches("\\d+")
+			? "Lesson " + Integer.parseInt(id)
+			: id;
+
+		JCheckBox checkbox = new JCheckBox(label);
+		checkbox.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		pnlLessonList.add(checkbox);
+		lessonCheckboxes.put(id, checkbox);
+	    }
+	}
+
+	pnlLessonList.revalidate();
+	pnlLessonList.repaint();
+
+	scrLessons.getVerticalScrollBar().setUnitIncrement(16);
+    }
+    
+    
+    private String getLessonGroup(String id) {
+
+	if (id.matches("\\d+")) {
+	    return "Original Lessons";
+	}
+
+	if (id.matches("HJ\\d+[a-zA-Z]L\\d+")) {
+	    String book = id.substring(2, id.lastIndexOf('L'));
+	    return "Hanyu Jiaocheng " + book.toUpperCase();
+	}
+
+	if (id.startsWith("HSK")) {
+	    return "HSK";
+	}
+
+	return "Other";
+    }
+
+    private int getLessonNumber(String id) {
+
+	int i = id.length() - 1;
+
+	while (i >= 0 && Character.isDigit(id.charAt(i))) {
+	    i--;
+	}
+
+	if (i == id.length() - 1) {
+	    return Integer.MAX_VALUE;
+	}
+
+	try {
+	    return Integer.parseInt(id.substring(i + 1));
+	} catch (NumberFormatException e) {
+	    return Integer.MAX_VALUE;
+	}
     }
 
     /**
@@ -1197,31 +1172,6 @@ public class frmMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboLearningMode;
     private javax.swing.JCheckBox chkAlwaysShowHint;
-    private javax.swing.JCheckBox chkL1;
-    private javax.swing.JCheckBox chkL10;
-    private javax.swing.JCheckBox chkL11;
-    private javax.swing.JCheckBox chkL12;
-    private javax.swing.JCheckBox chkL13;
-    private javax.swing.JCheckBox chkL14;
-    private javax.swing.JCheckBox chkL15;
-    private javax.swing.JCheckBox chkL16;
-    private javax.swing.JCheckBox chkL17;
-    private javax.swing.JCheckBox chkL18;
-    private javax.swing.JCheckBox chkL19;
-    private javax.swing.JCheckBox chkL2;
-    private javax.swing.JCheckBox chkL20;
-    private javax.swing.JCheckBox chkL3;
-    private javax.swing.JCheckBox chkL4;
-    private javax.swing.JCheckBox chkL5;
-    private javax.swing.JCheckBox chkL6;
-    private javax.swing.JCheckBox chkL7;
-    private javax.swing.JCheckBox chkL8;
-    private javax.swing.JCheckBox chkL9;
-    private javax.swing.JCheckBox chkLDuolingo;
-    private javax.swing.JCheckBox chkLHSK1;
-    private javax.swing.JCheckBox chkLHSK2;
-    private javax.swing.JCheckBox chkLHSK3;
-    private javax.swing.JCheckBox chkLHSK4;
     private javax.swing.JCheckBox chkOnlyUnknownWords;
     private javax.swing.JCheckBox chkPlayAudioImmediately;
     private javax.swing.JCheckBox chkPlayAudioOnlyForTingXie;
@@ -1247,6 +1197,8 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSpinner numShuffleBeta;
+    private javax.swing.JPanel pnlLessonList;
+    private javax.swing.JScrollPane scrLessons;
     private javax.swing.JTextArea txtAnswer;
     private javax.swing.JTextPane txtConsole;
     private javax.swing.JTextArea txtHint;
@@ -1263,8 +1215,6 @@ public class frmMain extends javax.swing.JFrame {
     ArrayList<Word> curList;
     int curListIndex;
     LearningMode curLearningMode;
-    boolean[] lessons;
-    String[] lessonStrings = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "Duolingo", "HSK1", "HSK2", "HSK3", "HSK4"};
     Word curWord;
     WeightedShuffle weightedShuffle;
 

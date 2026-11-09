@@ -63,7 +63,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cmdResetWordStats" min="-2" pref="165" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="52" max="32767" attributes="0"/>
                       <Component id="cmdTest" min="-2" pref="112" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmdEnd" min="-2" pref="176" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
                                   <Component id="cmdPreviousFont" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="cmdNextFont" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="157" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="172" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -306,78 +306,18 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="chkL7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="chkL14" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="chkLDuolingo" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="scrLessons" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="chkL5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="chkL9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkL10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkL8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="chkL15" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="chkLHSK1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="chkL17" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="chkLHSK3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="chkL16" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="chkLHSK2" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="chkL12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkL11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkL13" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="chkL18" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="chkLHSK4" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="chkL20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkL19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="cmdLessonsSelectAll" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="cmdLessonsSelectNone" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="123" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -389,131 +329,14 @@
                           <Component id="cmdLessonsSelectAll" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cmdLessonsSelectNone" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkL1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkLHSK1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="chkL2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="chkL6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="chkL9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkLHSK2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="chkL10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkL17" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkLHSK3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL11" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL12" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="chkL18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkLHSK4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL19" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chkL20" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkL7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkL14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkLDuolingo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="scrLessons" pref="152" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JCheckBox" name="chkL1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 1"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 2"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 3"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 4"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL5">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 5"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL6">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 6"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL7">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 7"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL8">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 8"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL9">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 9"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL10">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 10"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL11">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 11"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL12">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 12"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="cmdLessonsSelectAll">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Select all"/>
@@ -530,82 +353,30 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdLessonsSelectNoneActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL13">
+            <Container class="javax.swing.JScrollPane" name="scrLessons">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 13"/>
+                <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL14">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 14"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL15">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 15"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL16">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 16"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL17">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 17"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL20">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 20"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL19">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 19"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkL18">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lesson 18"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkLDuolingo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Duolingo"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkLHSK1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="HSK 1"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkLHSK2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="HSK 2"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkLHSK3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="HSK 3"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkLHSK4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="HSK 4"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="pnlLessonList">
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="439" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="149" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                </Container>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="cmdLearningModeApply">
